@@ -1,0 +1,10 @@
+{
+  "extends": "astro/tsconfigs/base",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "shared/*": ["src/shared/*"],
+      "widgets/*": ["src/widgets/*"]
+    }
+  }
+}
