@@ -1,0 +1,8 @@
+---
+import Container from "./ui/container.astro";
+
+const { className } = Astro.props
+---
+<Container classes={ className }>
+    <slot/>
+</Container>

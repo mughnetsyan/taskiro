@@ -1,0 +1,13 @@
+---
+import { cva } from 'class-variance-authority'
+
+import styles from './container.module.css'
+
+const container = cva(styles.container)
+
+const { className = '' } = Astro.props
+---
+
+<div class={container({ class: className })}>
+    <slot/>
+</div>
