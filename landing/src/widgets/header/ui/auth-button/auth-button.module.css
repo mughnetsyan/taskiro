@@ -1,0 +1,45 @@
+.btn {
+    padding: 8px 16px;
+
+    border-radius: 18px;
+       
+    font-size: 16px;
+    font-weight: 500;
+
+    color: var(--white);
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.btn_primary {
+    background: var(--purple);
+}
+
+.btn_secondary {
+    background: var(--black);
+}
+
+
+
+.btn:hover {
+    transform: translateY(4px);
+}
+
+.btn:active {
+    transform: translateY(8px);
+}
+
+
+/* 
+.btn_primary:hover {
+    background: var(--white);
+    color: var(--purple);
+}
+
+.btn_secondary:hover {
+    background: var(--white);
+    color: var(--black)
+} 
+*/

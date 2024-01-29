@@ -1,0 +1,18 @@
+---
+import Container from 'shared/container/index.astro'
+import AuthButton from './auth-button/auth-button.astro'
+
+import logo from '../assets/logo.svg'
+
+import styles from './header.module.css'
+
+---
+<header class={ styles.header }>
+    <Container className={ styles.container }>
+        <img src={ logo.src } alt='Logo'/>
+        <div class={ styles.auth__container }>
+            <AuthButton>Sign up</AuthButton>
+            <AuthButton intent="secondary">Sign in</AuthButton>
+        </div>
+    </Container>
+</header>
