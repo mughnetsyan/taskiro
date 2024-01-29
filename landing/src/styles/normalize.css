@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+    
+    scroll-behavior: smooth;
+
+    font-family: 'Montserrat', sans-serif;
+}
+
+html, body {
+    width: 100%;
+
+    background: var(--gray);
+}
+
+button {    
+    display: block;     
+
+    background: transparent;
+
+    border: none;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+}
+::-o-scrollbar {
+    width: 0;
+}
+::-moz-scrollbar {
+    width: 0;
+}
+::-ms-scrollbar {
+    width: 0;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+}
