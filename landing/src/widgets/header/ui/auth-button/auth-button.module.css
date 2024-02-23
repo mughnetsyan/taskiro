@@ -28,7 +28,7 @@
 }
 
 .btn:active {
-    transform: translateY(8px);
+    transform: translateY(8px); /* TODO: reconsider this parameter (12px?) */
 }
 
 
