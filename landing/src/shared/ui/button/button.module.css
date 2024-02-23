@@ -1,0 +1,32 @@
+.btn {
+    padding: 8px 24px;
+
+    border-radius: 18px;
+
+    font-size: 16px;
+    font-weight: 500;
+
+    transition: .2s;
+
+    cursor: pointer;
+}
+
+.btn_primary {
+    background: var(--black);
+
+    color: var(--white);
+}
+
+.btn_secondary {
+    background: transparent;
+
+    border: 1px solid var(--black);
+}
+
+.btn:hover {
+    transform: translateY(4px);
+}
+
+.btn:active {
+    transform: translateY(8px); /* TODO: reconsider this parameter (12px?) */
+}
