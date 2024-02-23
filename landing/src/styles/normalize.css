@@ -4,13 +4,15 @@
     
     scroll-behavior: smooth;
 
+    box-sizing: border-box;
+
     font-family: 'Montserrat', sans-serif;
 }
 
 html, body {
     width: 100%;
 
-    background: var(--gray);
+    background: var(--zircon);
 }
 
 button {    
@@ -19,6 +21,10 @@ button {
     background: transparent;
 
     border: none;
+}
+
+h1, h2, h3, h4 {
+  text-wrap: balance;
 }
 
 ::-webkit-scrollbar {
