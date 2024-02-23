@@ -1,0 +1,59 @@
+.list {
+    margin-top: 312px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+
+    gap: 128px;
+}
+
+.reverse {
+    flex-direction: row-reverse;
+}
+
+.feature {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+}
+
+.img {
+
+}
+
+.card {
+    width: 50%;
+
+    background: var(--white);
+
+    border-radius: 24px;
+
+    padding: 32px;
+}
+
+.title {
+    font-size: 40px;
+    font-weight: 600;
+
+    color: var(--black);
+}
+
+.title > span {
+    color: var(--purple);
+}
+
+.text {
+    margin-top: 24px;
+
+    font-weight: 20px;
+
+    color: var(--gravel)
+}
+
+.btn {
+    margin-top: 24px;
+}
+

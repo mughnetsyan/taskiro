@@ -1,0 +1,30 @@
+---
+import { cx } from 'class-variance-authority'
+
+import Container from 'shared/ui/container/container.astro'
+import Button from 'shared/ui/button/button.astro'
+
+import { textConfig, images } from '../config'
+
+import { convertTitle } from '../lib'
+import { isOdd } from '../lib'
+
+import styles from './feature-list.module.css'
+---
+
+<div class={styles.list}>
+    <Container className={styles.container} size="md">
+        {
+            textConfig.map((item, index) => (
+                <div class={cx(styles.feature, isOdd(index) && styles.reverse)}>
+                    <img class={styles.img} src={images[index]} alt="">
+                    <div class={styles.card}>
+                        <h1 class={styles.title} set:html={convertTitle(item.title)}></h1>
+                        <p class={styles.text} set:html={item.text}></p>
+                        <Button className={styles.btn} intent="secondary">Start the journey</Button>
+                    </div>
+                </div>
+            ))
+        }
+    </Container>
+</div>
