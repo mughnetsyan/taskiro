@@ -1,0 +1,64 @@
+.hero {
+    margin-top: 80px;
+
+    display: flex;
+
+    flex-direction: column;
+    justify-content: center;
+}
+
+.title {
+    font-size: 48px;
+    font-weight: 700;
+
+    text-align: center;
+
+    color: var(--black);
+}
+
+.title > span {
+    color: var(--purple);
+}
+
+.subtitle {
+    margin-top: 4px;
+
+    font-size: 20px;
+    font-weight: 400;
+
+    text-align: center;
+
+    color: var(--gravel);
+}
+
+.auth__container {
+    margin-top: 48px;
+
+    display: flex;
+    justify-content: center;
+
+    gap: 24px;
+}
+
+.images {
+    margin-top: 64px;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.images__left {
+    position: absolute;
+
+    transform: translateX(-400px);
+}
+
+.images__right {
+    position: absolute;
+
+    transform: translateX(400px);
+}
