@@ -7,20 +7,25 @@ import styles from './button.module.css'
 const button = cva(styles.btn, {
     variants: {
         intent: {
-            primary: styles.btn_primary,
-            secondary: styles.btn_secondary,
+            primary: styles.primary,
+            secondary: styles.secondary,
+        },
+        size: {
+            md: styles.md,
+            lg: styles.lg
         }
     },
     defaultVariants: {
-        intent: "primary"
+        intent: 'primary',
+        size: 'md'
     }
 })
 
 
-const { className, intent = 'primary' } = Astro.props
+const { className, intent, size } = Astro.props
  
 ---
 
-<button class={button({ className, intent })}>
+<button class={button({ className, intent, size })}>
     <slot/>
 </button>

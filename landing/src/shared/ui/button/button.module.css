@@ -1,26 +1,37 @@
 .btn {
+    transition: .2s;
+
+    cursor: pointer;
+}
+
+.primary {
+    background: var(--black);
+
+    color: var(--white);
+}
+
+.secondary {
+    background: transparent;
+
+    border: 1px solid var(--black);
+}
+
+.md {
     padding: 8px 24px;
 
     border-radius: 18px;
 
     font-size: 16px;
     font-weight: 500;
-
-    transition: .2s;
-
-    cursor: pointer;
 }
 
-.btn_primary {
-    background: var(--black);
+.lg {
+    padding: 12px 64px;
 
-    color: var(--white);
-}
+    border-radius: 24px;
 
-.btn_secondary {
-    background: transparent;
-
-    border: 1px solid var(--black);
+    font-size: 16px;
+    font-weight: 500;
 }
 
 .btn:hover {
