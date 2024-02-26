@@ -22,9 +22,16 @@
 }
 
 
+@media(hover) {
+    .btn:hover {
+        transform: translateY(4px);
+    }
+}   
 
-.btn:hover {
+.btn:focus-visible {
     transform: translateY(4px);
+
+    outline: none;
 }
 
 .btn:active {
