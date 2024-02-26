@@ -21,7 +21,7 @@ import styles from './feature-list.module.css'
                     <div class={styles.card}>
                         <h1 class={styles.title} set:html={convertTitle(item.title)}></h1>
                         <p class={styles.text} set:html={item.text}></p>
-                        <Button className={styles.btn} intent="secondary">Start the journey</Button>
+                        <Button className={styles.card__btn} intent="secondary">Start the journey</Button>
                     </div>
                 </div>
             ))
