@@ -56,3 +56,28 @@
 .card__btn {
     margin-top: 24px;
 }
+
+.btn {
+    margin: 0 auto;
+    margin-top: 256px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn > img:first-child {
+    transform: translateX(24px);
+}
+
+.btn > img:last-child {
+    transform: translateX(12px) translateY(24px);
+}
+
+.btn > button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 16px;
+}

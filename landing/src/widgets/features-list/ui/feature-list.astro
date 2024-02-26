@@ -10,6 +10,10 @@ import { convertTitle } from '../lib'
 import { isOdd } from '../lib'
 
 import styles from './feature-list.module.css'
+
+import partcilesImg1 from '../assets/particles-1.svg'
+import partcilesImg2 from '../assets/particles-2.svg'
+import arrowImg from '../assets/arrow.svg'
 ---
 
 <div class={styles.list}>
@@ -27,4 +31,13 @@ import styles from './feature-list.module.css'
             ))
         }
     </Container>
+
+    <div class={styles.btn}>
+        <img src={partcilesImg1.src} alt="">
+        <Button size="lg">
+            Start the journey
+            <img src={arrowImg.src} alt="">
+        </Button>
+        <img src={partcilesImg2.src} alt="">
+    </div>
 </div>
