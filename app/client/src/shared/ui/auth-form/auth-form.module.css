@@ -1,0 +1,31 @@
+.wrapper {
+    min-width: 324px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 16px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+
+    width: 100%; 
+    padding: 12px 0;
+
+    background: var(--white);
+    border-radius: 12px;
+}
+    
+.form {
+    padding: 20px 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    background: var(--white);
+    border-radius: 12px;
+}

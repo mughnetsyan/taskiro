@@ -10,13 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@farfetched/atomic-router": "^0.12.2",
     "@farfetched/core": "^0.12.2",
     "@withease/factories": "^1.0.3",
     "atomic-router": "^0.10.1",
     "atomic-router-react": "^0.10.0",
-    "cva": "^0.0.0",
+    "class-variance-authority": "^0.7.0",
     "effector": "^23.2.0",
+    "effector-forms": "git+https://github.com/42-px/effector-forms.git#c7f88af3c7cddf1196b5baa93a9624401c130850",
     "effector-react": "^23.2.0",
+    "patronum": "^2.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "vite-tsconfig-paths": "^4.3.2"

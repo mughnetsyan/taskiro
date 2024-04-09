@@ -1,0 +1,30 @@
+/* divide into variants */
+.button {
+    width: 100%;
+
+    padding: 12px 0;
+
+    background: var(--violet);
+    border-radius: 12px;
+
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--white);
+
+    transition: .2s;
+    cursor: pointer;
+}
+
+@media(hover) {
+    .button:hover {
+        transform: translateY(-4px);
+    }
+}   
+
+.button:focus-visible {
+    transform: translateY(-4px);
+}
+
+.button:active {
+    transform: translateY(2px);
+}

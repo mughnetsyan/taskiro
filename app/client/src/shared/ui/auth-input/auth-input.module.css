@@ -1,0 +1,11 @@
+.input {
+    padding: 12px 24px;
+
+    background: var(--mercury);
+    border-radius: 12px;
+
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--charcoal);
+}

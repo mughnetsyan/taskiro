@@ -1,0 +1,18 @@
+:root {
+    --white: #FFFFFF;
+    --black: #000000;
+
+    --charcoal: #413E54;
+    --black-coral: #5C5875;
+    --thunder: #4D4D4D;
+    --steel: #7A7A7A;
+
+    --mercury: #EFECFF;
+    --lavender: #CDA6FF;
+    --violet: #9747FF;
+    
+
+    /* Experimental */
+    --pearl: #F3F2F7;
+    --ghost-white: #F5F3FF; 
+}
