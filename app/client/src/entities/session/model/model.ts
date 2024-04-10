@@ -6,19 +6,10 @@ import { spread } from "patronum"
 import { routes } from "shared/routing"
 import { Session } from "shared/api"
 
-import { sessionQuery, authBarrier, signInMutation, signUpMutation, refreshSessionQuery } from "../api"
+import { sessionQuery, authBarrier, signInMutation, signUpMutation } from "../api"
 
 
 applyBarrier(sessionQuery, { barrier: authBarrier })
-
-sample({
-    clock: [
-        refreshSessionQuery.finished.success,
-        signInMutation.finished.success,
-        signUpMutation.finished.success
-    ],
-    target: sessionQuery.start
-})
 
 redirect({
     clock: [signInMutation.finished.success, signUpMutation.finished.success],
