@@ -1,6 +1,6 @@
 import { Controller, Req, Res, Body, Post, Get, UnauthorizedException, BadRequestException, NotFoundException, ConflictException, HttpCode, HttpStatus } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { type Request, Response } from 'express';
+import { type Request, type Response } from 'express';
 import * as bcrypt from 'bcrypt';
 
 import { UserService } from 'modules/user';
@@ -8,6 +8,7 @@ import { UserService } from 'modules/user';
 import { SessionService } from './session.service';
 import { SignInDto, SignUpDto } from './dto';
 import { Session } from './types';
+import { accessTokenConfig, refreshTokenConfig } from './config';
 
 
 @Controller('session')
@@ -61,12 +62,8 @@ export class SessionController {
     const newAccessToken = await this.sessionService.getAccessToken({userId})
     const newRefreshToken = await this.sessionService.getRefreshToken({userId})
 
-    response.cookie('accessToken', newAccessToken, {
-      httpOnly: true,
-    })
-    response.cookie('refreshToken', newRefreshToken, {
-      httpOnly: true,
-    })
+    response.cookie('accessToken', newAccessToken, accessTokenConfig.cookie)
+    response.cookie('refreshToken', newRefreshToken, refreshTokenConfig.cookie)
   }
 
   @Post('sign-in')
@@ -99,12 +96,8 @@ export class SessionController {
     const newAccessToken = await this.sessionService.getAccessToken({userId})
     const newRefreshToken = await this.sessionService.getRefreshToken({userId})
 
-    response.cookie('accessToken', newAccessToken, {
-      httpOnly: true,
-    })
-    response.cookie('refreshToken', newRefreshToken, {
-      httpOnly: true,
-    })
+    response.cookie('accessToken', newAccessToken, accessTokenConfig.cookie)
+    response.cookie('refreshToken', newRefreshToken, refreshTokenConfig.cookie)
   }
 
   @Post('sign-up')
@@ -134,11 +127,7 @@ export class SessionController {
     const newAccessToken = await this.sessionService.getAccessToken({userId})
     const newRefreshToken = await this.sessionService.getRefreshToken({userId})
 
-    response.cookie('accessToken', newAccessToken, {
-      httpOnly: true,
-    })
-    response.cookie('refreshToken', newRefreshToken, {
-      httpOnly: true,
-    })
+    response.cookie('accessToken', newAccessToken, accessTokenConfig.cookie)
+    response.cookie('refreshToken', newRefreshToken, refreshTokenConfig.cookie)
   }
 }
