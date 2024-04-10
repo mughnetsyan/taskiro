@@ -9,7 +9,7 @@ export class SessionMiddleware implements NestMiddleware {
     private readonly sessionService: SessionService
   ) {}
 
-  async use(request: Request, next: NextFunction) {
+  async use(request: Request, response: Response, next: NextFunction) {
     const { accessToken } = request.cookies
 
     if(!accessToken) {
