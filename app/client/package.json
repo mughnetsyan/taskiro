@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@farfetched/atomic-router": "^0.12.2",
+    "@farfetched/atomic-router": "^0.12.4",
     "@farfetched/core": "^0.12.2",
     "@withease/factories": "^1.0.3",
     "atomic-router": "^0.10.1",
