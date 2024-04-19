@@ -10,14 +10,21 @@
     scroll-behavior: smooth;
 }
 
+*:focus-visible {
+    outline-color: var(--charcoal);
+}
+
 button {
     outline: none;
     border: none;
 }
 
 input {
-    outline: none;
     border: none;
+}
+
+a {
+    text-decoration: none;
 }
 
 ::-webkit-scrollbar {
