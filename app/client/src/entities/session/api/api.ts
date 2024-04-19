@@ -18,10 +18,9 @@ export const sessionQuery = createJsonQuery({
     }
 })
 
-export const refreshSessionQuery = createJsonQuery({
-    initialData: null,
+export const refreshSessionMutation = createJsonMutation({
     request: {
-        method: 'GET',
+        method: 'POST',
         url: getRequestPath('session/refresh'),
         credentials: 'include'
     },

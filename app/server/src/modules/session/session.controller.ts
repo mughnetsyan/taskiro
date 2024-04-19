@@ -37,7 +37,7 @@ export class SessionController {
     return session
   }
 
-  @Get('refresh')
+  @Post('refresh')
   @HttpCode(200)  
   async refreshSession(@Req() request: Request, @Res({passthrough: true}) response: Response) {
     const { refreshToken } = request.cookies
@@ -120,7 +120,7 @@ export class SessionController {
     const salt = parseInt(this.configService.get<string>('BCRYPT_SALT'))
     const cryptedPassword = await bcrypt.hash(password, salt)
 
-    const user = await this.userService.createUser({ login, password: cryptedPassword })
+    const user = await this.userService.createUser({ ...body, password: cryptedPassword })
     const { id: userId } = user
 
 
