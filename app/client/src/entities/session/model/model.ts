@@ -6,15 +6,10 @@ import { spread } from "patronum"
 import { routes } from "shared/routing"
 import { Session } from "shared/api"
 
-import { sessionQuery, authBarrier, signInMutation, signUpMutation } from "../api"
+import { sessionQuery, authBarrier, refreshSessionMutation } from "../api"
 
 
 applyBarrier(sessionQuery, { barrier: authBarrier })
-
-redirect({
-    clock: [signInMutation.finished.success, signUpMutation.finished.success],
-    route: routes.dashboardRoute
-})
 
 
 export const $login = createStore<string>('')
@@ -25,4 +20,9 @@ sample({
     target: spread({
         login: $login
     })
+})
+
+redirect({
+    clock: refreshSessionMutation.finished.failure,
+    route: routes.signUpRoute
 })

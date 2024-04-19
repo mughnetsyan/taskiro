@@ -1,11 +1,21 @@
+import { chainRoute, RouteInstance, RouteParamsAndQuery } from "atomic-router";
+
+import { sessionQuery } from "entities/session"
 import { createEvent, sample } from "effector";
-import { chainRoute, redirect, RouteInstance, RouteParamsAndQuery } from "atomic-router";
-
-import { refreshSessionQuery, sessionQuery } from "entities/session"
-
-import { routes } from "shared/routing";
 
 
+// use something like this, when the issue will be closed
+// https://github.com/igorkamyshev/farfetched/issues/457
+//
+// export const chainAuthorized = (route: RouteInstance<any>) => {
+//     return chainRoute({ 
+//         route: chainRoute({
+//             route,
+//             ...startChain(sessionQuery)
+//         }),
+//         ...barrierChain(authBarrier)
+//     })
+// }
 export const chainAuthorized = (route: RouteInstance<any>) => {
     const authCheckStarted = createEvent<RouteParamsAndQuery<any>>()
 
@@ -14,14 +24,9 @@ export const chainAuthorized = (route: RouteInstance<any>) => {
         target: sessionQuery.start
     })
 
-    redirect({
-        clock: refreshSessionQuery.finished.failure,
-        route: routes.signUpRoute
-    })
-
     return chainRoute({ 
         route: route,
         beforeOpen: authCheckStarted,
-        openOn: [sessionQuery.finished.success, refreshSessionQuery.finished.success]
+        openOn: sessionQuery.finished.success
     })
 }
