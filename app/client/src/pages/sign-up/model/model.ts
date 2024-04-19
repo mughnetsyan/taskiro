@@ -1,13 +1,22 @@
+import { redirect } from "atomic-router"
 import { sample } from "effector"
 import { createForm } from "effector-forms"
 
 import { signUpMutation } from "entities/session"
+
+import { routes } from "shared/routing"
 
 
 export const $signUpForm = createForm({
     fields: {
         login: {
             init: "",
+        },
+        name: {
+            init: ""
+        },
+        bio: {
+            init: ""
         },
         password: {
             init: "",
@@ -18,4 +27,9 @@ export const $signUpForm = createForm({
 sample({
     clock: $signUpForm.formValidated,
     target: signUpMutation.start
+})
+
+redirect({
+    clock: signUpMutation.finished.success,
+    route: routes.dashboardRoute
 })

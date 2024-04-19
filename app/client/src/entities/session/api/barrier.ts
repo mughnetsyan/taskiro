@@ -1,13 +1,11 @@
-import { applyBarrier, createBarrier, isHttpErrorCode } from "@farfetched/core"
+import { createBarrier, isHttpErrorCode } from "@farfetched/core"
 
-import { refreshSessionQuery, sessionQuery } from "./api"
+import { refreshSessionMutation } from "./api"
 
 
 export const authBarrier = createBarrier({
     activateOn: {
         failure: isHttpErrorCode(401)
     },
-    perform: [
-        refreshSessionQuery
-    ]
+    perform: [ refreshSessionMutation ]
 })

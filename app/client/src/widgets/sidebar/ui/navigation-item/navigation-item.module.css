@@ -1,0 +1,32 @@
+.link {
+    display: flex;
+    align-items: center;
+    
+    gap: 12px;
+
+    padding: 8px 0px 8px 16px;
+
+    border-radius: 8px;
+
+    outline: none;
+
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--charcoal);
+
+    transition: .2s;
+}
+
+.link__active {
+    background: var(--pearl);
+}
+
+@media(hover) {
+    .link:hover {
+        background: var(--pearl);
+    }
+}
+
+.link:focus-visible {
+    background: var(--pearl);
+}

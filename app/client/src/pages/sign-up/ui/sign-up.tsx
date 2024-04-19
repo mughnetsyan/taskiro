@@ -32,6 +32,20 @@ export const SignUp = () => {
                     />
                     <AuthInput 
                         className={styles.input} 
+                        placeholder='Name'
+                        
+                        value={fields.name.value}
+                        onChange={(e) => fields.name.onChange(e.target.value)}
+                    />
+                    <AuthInput 
+                        className={styles.input} 
+                        placeholder='Bio'
+                        
+                        value={fields.bio.value}
+                        onChange={(e) => fields.bio.onChange(e.target.value)}
+                        />
+                        <AuthInput 
+                            className={styles.input} 
                         placeholder='Password'
                         type='password'
 
