@@ -1,4 +1,6 @@
-export class CreateUserDto {
-    readonly login: string
-    readonly password: string
+export type CreateUserDto = {
+    login: string,
+    name: string,
+    bio: string,
+    password: string
 }

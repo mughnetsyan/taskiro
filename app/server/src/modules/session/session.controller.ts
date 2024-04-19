@@ -32,6 +32,8 @@ export class SessionController {
 
     const session = {
       login: user.login,
+      name: user.name,
+      bio: user.bio
     }
 
     return session
@@ -69,7 +71,8 @@ export class SessionController {
   @Post('sign-in')
   @HttpCode(200)
   async signIn(@Body() body: SignInDto, @Res({passthrough: true}) response: Response) {
-    const { login, password } = body
+    const login = body.login.toLowerCase()
+    const password = body.password
 
 
     if(!login || !password) {
@@ -85,16 +88,20 @@ export class SessionController {
     }
 
     const passwordsEqual = await bcrypt.compare(password, user.password)
+
+    
     if(!passwordsEqual) {
       throw new UnauthorizedException()
-    }
-    
 
-    const { id: userId } = user
+    }
+
+
+    const userId = user.id
 
 
     const newAccessToken = await this.sessionService.getAccessToken({userId})
     const newRefreshToken = await this.sessionService.getRefreshToken({userId})
+
 
     response.cookie('accessToken', newAccessToken, accessTokenConfig.cookie)
     response.cookie('refreshToken', newRefreshToken, refreshTokenConfig.cookie)
@@ -103,7 +110,8 @@ export class SessionController {
   @Post('sign-up')
   @HttpCode(201)
   async signUp(@Body() body: SignUpDto, @Res({passthrough: true}) response: Response) {
-    const { login, password } = body
+    const login = body.login.toLowerCase()
+    const password = body.password
 
 
     if(!login || !password) {
@@ -120,7 +128,7 @@ export class SessionController {
     const salt = parseInt(this.configService.get<string>('BCRYPT_SALT'))
     const cryptedPassword = await bcrypt.hash(password, salt)
 
-    const user = await this.userService.createUser({ ...body, password: cryptedPassword })
+    const user = await this.userService.createUser({ ...body, login, password: cryptedPassword })
     const { id: userId } = user
 
 
