@@ -1,0 +1,33 @@
+.section {
+    display: flex;
+    
+    gap: 12px;
+}
+
+.projects {
+    display: grid;
+
+    gap: 12px;
+
+    grid-template-columns: repeat(6, 1fr);
+}
+
+.more {
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+
+    align-items: center;
+    justify-content: center;
+
+
+    background: var(--white);
+
+    border-radius: 8px;
+    padding: 0px 12px;
+
+    font-weight: 600;
+    font-size: 20px;
+    color: #413e54;
+}

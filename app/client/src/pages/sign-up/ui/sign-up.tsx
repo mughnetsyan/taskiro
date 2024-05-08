@@ -2,7 +2,7 @@ import { FormEvent } from 'react'
 import { useForm } from 'effector-forms'
 import { Link } from 'atomic-router-react'
 
-import { routes } from 'shared/routing'
+import { baseRoutes } from 'shared/routing'
 import { AuthForm, AuthInput, AuthButton } from 'shared/ui'
 
 import { $signUpForm } from '../model'
@@ -55,7 +55,7 @@ export const SignUp = () => {
                 </div>
                 <div className={styles.actions}>
                     <AuthButton type='submit'>Sign up</AuthButton>  
-                    <p className={styles.link}>Already have an account? <Link to={routes.signInRoute}>Sign in</Link></p>
+                    <p className={styles.link}>Already have an account? <Link to={baseRoutes.signIn}>Sign in</Link></p>
                 </div>
             </AuthForm>
         </div>

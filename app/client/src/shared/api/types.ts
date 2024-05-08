@@ -5,7 +5,8 @@ export type Task = {
 }
 
 export type Project = {
-    id: number
+    id: number,
+    userId: number,
     name: string,
     description: string,
 }

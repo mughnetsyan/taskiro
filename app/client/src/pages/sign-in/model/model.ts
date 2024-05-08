@@ -4,7 +4,7 @@ import { createForm } from "effector-forms"
 
 import { signInMutation } from "entities/session"
 
-import { routes } from "shared/routing"
+import { baseRoutes } from "shared/routing"
 
 
 export const $signInForm = createForm({
@@ -26,5 +26,5 @@ sample({
 
 redirect({
     clock: signInMutation.finished.success,
-    route: routes.dashboardRoute
+    route: baseRoutes.dashboard
 })

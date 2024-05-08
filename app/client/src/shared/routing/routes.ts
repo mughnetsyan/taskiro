@@ -1,16 +1,16 @@
 import { createRoute } from "atomic-router"
 
-export const routes = {
-    dashboardRoute: createRoute(),
-    projectsRoute: createRoute(),
+export const baseRoutes = {
+    dashboard: createRoute(),
+    projects: createRoute(),
 
-    signInRoute: createRoute(),
-    signUpRoute: createRoute(),
+    signIn: createRoute(),
+    signUp: createRoute(),
 }
 
 export const routesMap = [
-    { path: '/', route: routes.dashboardRoute },
-    { path: '/projects', route: routes.projectsRoute },
-    { path: '/sign-in', route: routes.signInRoute },
-    { path: '/sign-up', route: routes.signUpRoute },
+    { path: '/', route: baseRoutes.dashboard },
+    { path: '/projects', route: baseRoutes.projects },
+    { path: '/sign-in', route: baseRoutes.signIn },
+    { path: '/sign-up', route: baseRoutes.signUp },
 ]

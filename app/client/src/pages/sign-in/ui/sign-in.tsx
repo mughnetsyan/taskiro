@@ -8,7 +8,7 @@ import { $signInForm } from '../model'
 
 import styles from './sign-in.module.css'
 
-import { routes } from 'shared/routing'
+import { baseRoutes } from 'shared/routing'
 
 
 export const SignIn = () => {
@@ -43,7 +43,7 @@ export const SignIn = () => {
                     </div>
                     <div className={styles.actions}>
                         <AuthButton type='submit'>Sign in</AuthButton>
-                        <p className={styles.link}>Don't have an account? <Link to={routes.signUpRoute}>Sign up</Link></p>
+                        <p className={styles.link}>Don't have an account? <Link to={baseRoutes.signUp}>Sign up</Link></p>
                 </div>
             </AuthForm>  
         </div>

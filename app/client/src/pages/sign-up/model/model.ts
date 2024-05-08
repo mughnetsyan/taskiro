@@ -4,7 +4,7 @@ import { createForm } from "effector-forms"
 
 import { signUpMutation } from "entities/session"
 
-import { routes } from "shared/routing"
+import { baseRoutes } from "shared/routing"
 
 
 export const $signUpForm = createForm({
@@ -31,5 +31,5 @@ sample({
 
 redirect({
     clock: signUpMutation.finished.success,
-    route: routes.dashboardRoute
+    route: baseRoutes.dashboard
 })

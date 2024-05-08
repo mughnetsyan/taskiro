@@ -1,1 +1,2 @@
-export * from './dashboard'
+export * from './ui/dashboard'
+export * from './model'

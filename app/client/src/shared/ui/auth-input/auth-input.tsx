@@ -12,8 +12,6 @@ type Ref = HTMLInputElement
 
 export const AuthInput = forwardRef<Ref, Props>(({className, ...props}, ref) => {
     return (
-        <>
-            <input ref={ref} className={cx(styles.input, className)} {...props}/>
-        </>
+        <input ref={ref} className={cx(styles.input, className)} {...props}/>
     )
 })

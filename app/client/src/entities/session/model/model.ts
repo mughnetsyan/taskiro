@@ -3,7 +3,7 @@ import { redirect } from "atomic-router"
 import { applyBarrier } from "@farfetched/core"
 import { debug, spread } from "patronum"
 
-import { routes } from "shared/routing"
+import { baseRoutes } from "shared/routing"
 import { Session } from "shared/api"
 
 import { sessionQuery, authBarrier, signInMutation, signUpMutation, refreshSessionMutation } from "../api"
@@ -28,5 +28,5 @@ sample({
 
 redirect({
     clock: refreshSessionMutation.finished.failure,
-    route: routes.signUpRoute
+    route: baseRoutes.signUp
 })

@@ -4,7 +4,9 @@ import { SequelizeModule } from '@nestjs/sequelize'
 import { JwtModule } from '@nestjs/jwt'
 
 import { User, UserModule } from 'modules/user'
+import { Project, ProjectModule } from 'modules/project'
 import { SessionMiddleware, SessionModule } from 'modules/session'
+
 
 
 @Module({
@@ -22,7 +24,7 @@ import { SessionMiddleware, SessionModule } from 'modules/session'
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DATABASE,
-      models: [User],
+      models: [User, Project],
       autoLoadModels: true
     }),
     JwtModule.register({
@@ -32,6 +34,7 @@ import { SessionMiddleware, SessionModule } from 'modules/session'
 
 
     UserModule,
+    ProjectModule,
     SessionModule
   ],
 })

@@ -2,7 +2,7 @@ import { Link } from 'atomic-router-react'
 
 import { SessionCard } from 'entities/session/'
 
-import { routes } from 'shared/routing'
+import { baseRoutes } from 'shared/routing'
 
 import { NavigationItem } from './navigation-item'
 
@@ -24,13 +24,13 @@ export const Sidebar = () => {
     return (
         <aside className={styles.sidebar}>
             <section className={styles.body}>
-                <Link className={styles.link} to={routes.dashboardRoute}>
+                <Link className={styles.link} to={baseRoutes.dashboard}>
                     <img src={logo} alt="logo" />
                 </Link>
                 <SessionCard />
                 <nav className={styles.navigation}>
-                    <NavigationItem route={routes.dashboardRoute} src={dashobardImg}>Dashboard</NavigationItem>
-                    <NavigationItem route={routes.projectsRoute} src={projectsImg}>Projects</NavigationItem>
+                    <NavigationItem route={baseRoutes.dashboard} src={dashobardImg}>Dashboard</NavigationItem>
+                    <NavigationItem route={baseRoutes.projects} src={projectsImg}>Projects</NavigationItem>
                 </nav>
             </section>
             <section className={styles.actions}>

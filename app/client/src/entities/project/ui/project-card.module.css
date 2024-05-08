@@ -1,0 +1,28 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    max-height: auto;
+
+    padding: 20px;
+
+    background: var(--white);
+    
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+.name {
+    font-weight: 600;
+    font-size: 20px;
+
+    color: var(--black);
+}
+
+.description {
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--charcoal);
+}
