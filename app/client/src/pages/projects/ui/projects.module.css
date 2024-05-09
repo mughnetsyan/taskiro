@@ -6,4 +6,6 @@
     grid-template-columns: repeat(6, 1fr);
 
     overflow: auto;
+     
+    scroll-padding: auto;
 }
