@@ -17,7 +17,10 @@ import arrowRight from '../assets/projects-arrow-right.svg'
 
 export const Dashboard = () => {
 
-    const projects = useUnit(projectsQuery.$data)
+    const data = useUnit(projectsQuery.$data)
+
+    const projects = data?.projects || []
+    const hasMore = data?.hasMore || true
 
     return (
         <BaseLayout title="Dashboard">
@@ -29,9 +32,13 @@ export const Dashboard = () => {
                             projects.map(({id, name, description}) => <ProjectCard key={id} name={name} description={description}/>)
                         }
                     </div>
-                    <Link className={styles.more} to={baseRoutes.projects}>
-                        <img src={arrowRight} alt="" />
-                    </Link>
+                    {
+                        hasMore && (
+                            <Link className={styles.more} to={baseRoutes.projects}>
+                                <img src={arrowRight} alt="More" />
+                            </Link>
+                        )
+                    }
                 </div>
             </Section>
         </BaseLayout>

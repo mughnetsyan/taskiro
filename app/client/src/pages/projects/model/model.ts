@@ -6,6 +6,7 @@ import { createProjectsQuery } from "entities/project";
 import { Project } from "shared/api";
 
 import { LIMIT, OFFSET_STEP } from "../config";
+import { debug } from "patronum";
 
 
 export const loadedMoreProjects = createEvent()
@@ -14,6 +15,8 @@ export const loadedMoreProjects = createEvent()
 export const $limit = createStore(LIMIT)
 
 export const $offset = createStore(0)
+
+export const $hasMore = createStore<boolean>(false)
 
 export const $projects = createStore<Project[]>([])
 
@@ -26,14 +29,17 @@ $offset
 
 
 sample({
-    clock: projectsQuery.finished.success,
-    source: {
-        projects: $projects,
-        result: projectsQuery.$data
-    },
-    filter: ({result}) => result !== null,
-    fn: ({projects, result}) => [...projects, ...result as Project[]],
+    clock: projectsQuery.$data,
+    source: $projects,
+    filter: (_, result) => result?.projects !== null,
+    fn: (projects, result) => [...projects, ...result?.projects as Project[]],
     target: $projects
+})
+
+sample({
+    clock: projectsQuery.$data,
+    fn: (result) => result?.hasMore as boolean,
+    target: $hasMore
 })
 
 sample({
@@ -42,5 +48,6 @@ sample({
         limit: $limit,
         offset: $offset,
     },
+    filter: $hasMore,
     target: projectsQuery.start
 })
