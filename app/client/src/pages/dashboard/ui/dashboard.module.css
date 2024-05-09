@@ -14,13 +14,9 @@
 
 .more {
     display: flex;
-    flex-direction: column;
-
-    gap: 4px;
 
     align-items: center;
     justify-content: center;
-
 
     background: var(--white);
 

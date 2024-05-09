@@ -30,7 +30,6 @@ export const Dashboard = () => {
                         }
                     </div>
                     <Link className={styles.more} to={baseRoutes.projects}>
-                        <span>+7</span>
                         <img src={arrowRight} alt="" />
                     </Link>
                 </div>
