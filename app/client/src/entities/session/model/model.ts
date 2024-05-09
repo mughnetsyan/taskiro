@@ -6,7 +6,7 @@ import { debug, spread } from "patronum"
 import { baseRoutes } from "shared/routing"
 import { Session } from "shared/api"
 
-import { sessionQuery, authBarrier, signInMutation, signUpMutation, refreshSessionMutation } from "../api"
+import { authBarrier, sessionQuery, refreshSessionMutation } from "../api"
 
 
 applyBarrier(sessionQuery, { barrier: authBarrier })

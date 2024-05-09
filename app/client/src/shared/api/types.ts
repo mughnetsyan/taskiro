@@ -12,14 +12,7 @@ export type Project = {
 }
 
 export type Session = {
+    name: string,
     login: string,
+    bio: string,
 }
-
-// export type Session = {
-//     name: string,
-//     login: string,
-//     bio: string,
-//     experience: number,
-//     avatarUrl: string,
-//     projects: Project[]
-// }
