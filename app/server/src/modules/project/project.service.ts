@@ -19,8 +19,8 @@ export class ProjectService {
         return dto
     }
 
-    async getProjects(userId: number, limit: number, offset: number) {
-        const projects = await this.projectRepository.findAll({
+    async getProjectsAndCount(userId: number, limit?: number, offset?: number) {
+        const { rows: projects, count } = await this.projectRepository.findAndCountAll({
             where: {
                 userId
             },
@@ -32,6 +32,9 @@ export class ProjectService {
         })
 
 
-        return projects
+        return {
+            projects,
+            count
+        }
     }
 }
