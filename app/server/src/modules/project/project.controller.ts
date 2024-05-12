@@ -1,4 +1,4 @@
-import { BadRequestException, Controller, Get, HttpCode, Post, Query, Req, Res, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Controller, Get, HttpCode, Post, Query, Req, UnauthorizedException } from '@nestjs/common';
 import { Request } from 'express';
 
 import { SessionService } from 'modules/session';

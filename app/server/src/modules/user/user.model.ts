@@ -1,6 +1,7 @@
 import { Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
 
 import { CreateUserDto } from "./dto";
+
 import { Project } from "modules/project/project.model";
 
 
@@ -21,8 +22,4 @@ export class User extends Model<User, CreateUserDto> {
 
     @Column({type: DataType.STRING, allowNull: false})
     password: string
-
-
-    @HasMany(() => Project)
-    projects: Project[]
 }

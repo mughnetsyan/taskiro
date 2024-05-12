@@ -1,6 +1,7 @@
-import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
 
 import { User } from "modules/user";
+import { Task } from "modules/task";
 
 
 @Table({tableName: 'projects'})
@@ -18,7 +19,6 @@ export class Project extends Model<Project, unknown> {
 
     @Column({type: DataType.STRING, allowNull: true})
     description: string
-
 
     @BelongsTo(() => User, 'userId')
     user: User

@@ -6,6 +6,7 @@ import { JwtModule } from '@nestjs/jwt'
 import { User, UserModule } from 'modules/user'
 import { Project, ProjectModule } from 'modules/project'
 import { SessionMiddleware, SessionModule } from 'modules/session'
+import { Task, TaskModule } from 'modules/task'
 
 
 
@@ -24,7 +25,7 @@ import { SessionMiddleware, SessionModule } from 'modules/session'
       username: process.env.POSTGRES_USERNAME,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DATABASE,
-      models: [User, Project],
+      models: [User, Project, Task],
       autoLoadModels: true
     }),
     JwtModule.register({
@@ -35,7 +36,8 @@ import { SessionMiddleware, SessionModule } from 'modules/session'
 
     UserModule,
     ProjectModule,
-    SessionModule
+    SessionModule,
+    TaskModule
   ],
 })
 export class AppModule implements NestModule {
