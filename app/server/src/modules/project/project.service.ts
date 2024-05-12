@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/sequelize';
 
 import { Project } from './project.model';
 
-import { CreateProjectDto } from './dto/create-project.dto';
+import { CreateProjectDto, GetProjectsAndCountDto } from './dto/create-project.dto';
 
 
 @Injectable()
@@ -16,10 +16,10 @@ export class ProjectService {
     async createProject(dto: CreateProjectDto) {
         const project = await this.projectRepository.create(dto)
 
-        return dto
+        return project
     }
 
-    async getProjectsAndCount(userId: number, limit?: number, offset?: number) {
+    async getProjectsAndCount({userId, limit, offset}: GetProjectsAndCountDto) {
         const { rows: projects, count } = await this.projectRepository.findAndCountAll({
             where: {
                 userId

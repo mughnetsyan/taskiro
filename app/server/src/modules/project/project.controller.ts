@@ -1,4 +1,4 @@
-import { BadRequestException, Controller, Get, Query, Req, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Controller, Get, HttpCode, Post, Query, Req, Res, UnauthorizedException } from '@nestjs/common';
 import { Request } from 'express';
 
 import { SessionService } from 'modules/session';
@@ -25,14 +25,42 @@ export class ProjectController {
 
     const { userId } = decodedAccessToken
 
-    const { projects, count } = await this.projectService.getProjectsAndCount(userId, parseInt(limit), parseInt(offset))
+    const { projects, count } = await this.projectService.getProjectsAndCount({userId, limit: parseInt(limit), offset: parseInt(offset)})
 
-    const hasMore = count > parseInt(offset)
+    let hasMore: boolean
+
+    if(limit > offset) {
+      hasMore = count >= parseInt(limit)
+    } else {
+      hasMore = count >= parseInt(offset)
+    }
 
     return {
       projects,
       hasMore
     }
+  }
+
+  @Post()
+  @HttpCode(200)
+  async createNewProject(@Req() request: Request) {
+    const { name, description } = request.body
+
+    console.log(name, description)
+
+    if(!name || !description) throw new BadRequestException()
+
+    const { accessToken } = request.cookies
+
+    const decodedAccessToken = await this.sessionService.verifyToken(accessToken)
+
+    if(!decodedAccessToken) throw new UnauthorizedException()
+
+    const { userId } = decodedAccessToken
+
+    const project = await this.projectService.createProject({userId, name, description })
+
+    return project
   }
 }
 
