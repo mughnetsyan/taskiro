@@ -1,0 +1,27 @@
+.date {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 4px;
+
+    padding: 12px 0;
+
+    background: var(--ghost-white);
+
+    border-radius: 8px;
+}
+
+.time {
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--purple);
+}
+
+.day {
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--charcoal);
+}

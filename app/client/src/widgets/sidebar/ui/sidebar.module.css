@@ -1,4 +1,8 @@
 .sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
     width: 220px;
     height: 100%;
 
@@ -26,4 +30,11 @@
     flex-direction: column;
 
     gap: 4px;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
 }

@@ -1,6 +1,6 @@
 import { RefObject, useEffect } from "react";
 
-export const useObserver = (ref: RefObject<Element>, whenTargetIsIntersectingFn: () => unknown) => (
+export const useObserver = (ref: RefObject<Element>, whenTargetIsIntersectingFn: () => unknown, dependencies: unknown[] = []) => (
     useEffect(() => {
       const observer = new IntersectionObserver((entries) => {
         const target = entries[0]
@@ -18,5 +18,5 @@ export const useObserver = (ref: RefObject<Element>, whenTargetIsIntersectingFn:
           observer.unobserve(ref.current)
         }
       }
-    }, [])
+    }, dependencies)
 )

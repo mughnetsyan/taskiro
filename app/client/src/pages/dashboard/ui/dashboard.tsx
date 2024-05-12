@@ -20,7 +20,7 @@ export const Dashboard = () => {
     const data = useUnit(projectsQuery.$data)
 
     const projects = data?.projects || []
-    const hasMore = data?.hasMore || true
+    const hasMore = data?.hasMore || false
 
     return (
         <BaseLayout title="Dashboard">

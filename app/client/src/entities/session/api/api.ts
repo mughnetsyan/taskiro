@@ -1,8 +1,8 @@
 import { createJsonMutation, createJsonQuery, declareParams } from "@farfetched/core"
 
-import { getRequestPath } from "shared/api"
+import { getRequestPath, undefinedContract } from "shared/api"
 
-import { sessionContract, undefinedContract } from "./contracts"
+import { sessionContract } from "./contracts"
 import { SignInDto, SignUpDto } from "./dto"
 
 

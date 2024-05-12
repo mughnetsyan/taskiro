@@ -26,9 +26,11 @@ export const Loader = ({timeout}: Props) => {
     return (
         <>
             { isLoading && (    
-                <div className={styles.loader} style={{
-                    animationDuration: `${timeout}ms`
-                }}>
+                <div className={styles.loader} 
+                    style={{
+                        animationDuration: `${timeout}ms`
+                    }}
+                >
                     <img src={logo} alt="Logo" />
                 </div> 
             )}

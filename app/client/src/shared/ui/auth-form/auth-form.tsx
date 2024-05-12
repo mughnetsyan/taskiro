@@ -12,7 +12,7 @@ export const AuthForm = ({children, onSubmit}: Props) => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.logo}>
-                <img src={logo} alt='' />
+                <img src={logo} alt="Logo" />
             </div>
             <form className={styles.form} onSubmit={onSubmit}>
                {children}

@@ -7,8 +7,3 @@ export const sessionContract: Contract<unknown, Session> = {
     isData: (data): data is Session => true,
     getErrorMessages: () => ['error']
 }
-
-export const undefinedContract: Contract<unknown, undefined> = {
-    isData: (data): data is undefined => true,
-    getErrorMessages: () => ['error']
-}

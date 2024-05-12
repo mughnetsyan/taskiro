@@ -1,10 +1,13 @@
 import { Link } from 'atomic-router-react'
 
+import { CreateNewProject } from 'features/create-new-entity'
+
 import { SessionCard } from 'entities/session/'
 
 import { baseRoutes } from 'shared/routing'
 
 import { NavigationItem } from './navigation-item'
+import { CurrentDate } from './current-date'
 
 import styles from './sidebar.module.css'
 
@@ -12,12 +15,6 @@ import logo from '../assets/logo.svg'
 import dashobardImg from '../assets/dashboard.svg'
 import projectsImg from '../assets/projects.svg'
 
-
-
-interface Props {
-
-
-}
 
 
 export const Sidebar = () => {
@@ -34,7 +31,8 @@ export const Sidebar = () => {
                 </nav>
             </section>
             <section className={styles.actions}>
-
+                <CreateNewProject />
+                <CurrentDate />
             </section>
         </aside>
     )

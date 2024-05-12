@@ -20,10 +20,12 @@ export const Projects = () => {
     <ProjectCard key={id} name={name} description={description} />
   ))
 
+  const loadingFinished = useUnit(projectsQuery.$finished)
+
   const loaderRef = useRef(null)
   const loadMoreProjects = useUnit(loadedMoreProjects)
 
-  useObserver(loaderRef, loadMoreProjects)
+  useObserver(loaderRef, loadMoreProjects, [loadingFinished])
 
   return (
     <BaseLayout title="Projects">
