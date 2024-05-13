@@ -1,7 +1,7 @@
 import { combine, createStore, sample } from "effector";
 import { invoke } from "@withease/factories";
 
-import { createNewProjectMutation } from "features/create-new-entity";
+import { createNewProjectMutation } from "features/create-new-project";
 
 import { createProjectsQuery } from "entities/project";
 import { applyBarrier } from "@farfetched/core";

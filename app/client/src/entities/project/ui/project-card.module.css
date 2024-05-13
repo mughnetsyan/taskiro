@@ -11,6 +11,8 @@
     
     border-radius: 8px;
 
+    outline-offset: -2px;
+
     cursor: pointer;
 }
 

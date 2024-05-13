@@ -18,9 +18,9 @@ import styles from './projects.module.css'
 export const Projects = () => {
   const projects = useList($projects, {
     fn: ({id, name, description}) => (
-      <ProjectCard key={id} name={name} description={description} />
+      <ProjectCard key={id} id={id} name={name} description={description} />
     ),
-    placeholder: <ProjectCard key='placeholder' name="No projects here!" description="Create new ones!" />
+    placeholder: <ProjectCard key='placeholder' id={99999999} name="No projects here!" description="Create new ones!" />
   })
 
   const loadingFinished = useUnit(projectsQuery.$finished)

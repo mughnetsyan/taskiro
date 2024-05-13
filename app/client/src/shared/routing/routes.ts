@@ -5,7 +5,7 @@ export const baseRoutes = {
 
     projects: {
         overview: createRoute(),
-        project: createRoute<{projectId: string}>()
+        project: createRoute<{id: number}>()
     },
 
     signIn: createRoute(),
@@ -27,7 +27,7 @@ export const routesMap = [
         route: [baseRoutes.projects.overview, sections.projects]
     },
     { 
-        path: '/projects/:projectId', 
+        path: '/projects/:id', 
         route: [baseRoutes.projects.project, sections.projects] 
     },
     { 

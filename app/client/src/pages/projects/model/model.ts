@@ -4,7 +4,7 @@ import { applyBarrier } from "@farfetched/core";
 
 import { invoke } from "@withease/factories";
 
-import { createNewProjectMutation } from "features/create-new-entity";
+import { createNewProjectMutation } from "features/create-new-project";
 
 import { authBarrier } from "entities/session";
 import { createProjectsQuery } from "entities/project";

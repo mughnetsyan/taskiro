@@ -30,6 +30,7 @@ sample({
 reset({
     clock: [
         projectsRoute.closed,
+        baseRoutes.projects.overview.opened
     ],
     target: [
         $offset,

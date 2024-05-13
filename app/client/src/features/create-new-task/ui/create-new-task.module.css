@@ -1,0 +1,167 @@
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 16px 0;
+
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='8' ry='8' stroke='%23333' stroke-width='1' stroke-dasharray='5%2c 5' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+    border-radius: 8px;
+
+    transition: .2s;
+
+    cursor: pointer;
+}
+
+@media(hover) {
+    .button:hover {
+        transform: translateY(-4px);
+    }
+}
+
+.button:focus-visible {
+    transform: translateY(-4px);
+}
+
+.button:active {
+    transform: translateY(2px);
+}
+
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    inset: 0;
+    animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    padding: 20px;
+
+    background: var(--white);
+
+    border-radius: 8px;
+
+    animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 24px;
+}
+
+.title {
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--black-coral);
+}
+
+.close {
+    all: unset;
+
+    border-radius: 50%;
+
+    transition: .2s;
+
+    cursor: pointer;
+}
+
+.close:focus-visible {
+    transform: translateY(-4px);
+}
+
+@media(hover) {
+    .close:hover {
+        transform: translateY(-4px);
+    }
+}
+
+.close:active {
+    transform: translateY(2px);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 20px;
+
+    gap: 12px;
+}
+
+.textarea {
+    all: unset;
+
+    max-height: 120px;
+
+    resize: vertical;
+
+    padding: 16px 20px;
+
+    background: var(--mercury);
+    border-radius: 12px;
+
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: var(--charcoal);
+}
+
+.submitButton {
+    align-self: flex-end;
+
+    padding: 8px 24px;
+
+    background: var(--violet);
+    border-radius: 12px;
+
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--white);
+
+    transition: .2s;
+    cursor: pointer;
+}
+
+@media(hover) {
+    .submitButton:hover {
+        transform: translateY(-4px);
+    }
+}   
+
+.submitButton:focus-visible {
+    transform: translateY(-4px);
+}
+
+.submitButton:active {
+    transform: translateY(2px);
+}
+
+@keyframes overlayShow {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+}
+
+@keyframes contentShow {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -48%) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+}

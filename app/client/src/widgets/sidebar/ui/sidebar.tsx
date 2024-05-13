@@ -2,7 +2,7 @@ import { Link } from 'atomic-router-react'
 
 import { useList, useUnit } from 'effector-react'
 
-import { CreateNewProject } from 'features/create-new-entity'
+import { CreateNewProject } from 'features/create-new-project'
 
 import { SessionCard } from 'entities/session/'
 

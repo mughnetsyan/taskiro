@@ -3,8 +3,8 @@ import { createFactory } from "@withease/factories";
 
 import { getRequestPath } from "shared/api";
 
-import { projectsContract } from "./contracts";
-import { CreateNewProjectDto, ProjectsQueryDto } from "./dto";
+import { projectContract, projectsContract } from "./contracts";
+import { CreateNewProjectDto, ProjectQueryDto, ProjectsQueryDto } from "./dto";
 
 
 export const createProjectsQuery = createFactory(() => 
@@ -23,6 +23,20 @@ export const createProjectsQuery = createFactory(() =>
     }
 ))
 
+export const createProjectQuery = createFactory(() => 
+    createJsonQuery({
+        initialData: null,
+        params: declareParams<ProjectQueryDto>(),
+        request: {
+            method: 'GET',
+            url: ({id}) => getRequestPath(`projects/${id}`),
+            credentials: 'include'
+        },
+        response: {
+            contract: projectContract
+        }
+    })
+)
 
 export const createCreateNewProjectMutation = createFactory(() => 
     createJsonMutation({
