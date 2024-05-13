@@ -25,7 +25,7 @@ import arrowImg from '../assets/arrow.svg'
                     <div class={styles.card}>
                         <h1 class={styles.title} set:html={convertTitle(item.title)}></h1>
                         <p class={styles.text} set:html={item.text}></p>
-                        <Button className={styles.card__btn} intent="secondary">Start the journey</Button>
+                        <Button href="http://localhost:5173/sign-up" className={styles.card__btn} intent="secondary">Start the journey</Button>
                     </div>
                 </div>
             ))
@@ -34,7 +34,7 @@ import arrowImg from '../assets/arrow.svg'
 
     <div class={styles.btn}>
         <img src={partcilesImg1.src} alt="">
-        <Button size="lg">
+        <Button href="http://localhost:5173/sign-up" size="lg">
             Start the journey
             <img src={arrowImg.src} alt="">
         </Button>

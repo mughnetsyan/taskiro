@@ -15,9 +15,9 @@ const button = cva(styles.btn, {
     }
 })
 
-const { intent } = Astro.props
+const { intent, href } = Astro.props
 ---
 
-<button class={button({ intent })}>
+<a href={href} class={button({ intent })}>
     <slot/>
-</button>
+</a>
