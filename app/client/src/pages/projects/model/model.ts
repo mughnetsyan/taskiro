@@ -13,8 +13,7 @@ import { Project } from "shared/api";
 
 import { LIMIT, OFFSET_STEP } from "../config";
 import { baseRoutes } from "shared/routing";
-import { debug } from "patronum";
-
+import { debug, not } from "patronum";
 
 
 export const loadedMoreProjects = createEvent()
@@ -34,11 +33,31 @@ export const projectsQuery = invoke(createProjectsQuery)
 
 applyBarrier(projectsQuery, { barrier: authBarrier })
 
+// TODO: FIX THIS LATER
 
-$offset
-    .on(loadedMoreProjects, (offset) => offset + OFFSET_STEP)
+sample({
+    clock: sample({
+        clock: loadedMoreProjects,
+        filter: not(projectsQuery.$pending)
+    }),
+    source: $offset,
+    filter: $hasMore,
+    fn: (offset) => offset + OFFSET_STEP,
+    target: $offset
+})
 
-debug({"query started": projectsQuery.finished.finally, "hasMore": $hasMore})
+
+sample({
+    clock: sample({
+        clock: $offset,
+        filter: baseRoutes.projects.$isOpened,
+    }),
+    source: {
+        limit: $limit,
+        offset: $offset,
+    },
+    target: projectsQuery.start
+})
 
 sample({
     clock: projectsQuery.$data,
@@ -55,22 +74,8 @@ sample({
 })
 
 sample({
-    clock: loadedMoreProjects,
-    source: {
-        limit: $limit,
-        offset: $offset,
-    },
-    filter: $hasMore,
-    target: projectsQuery.start
-})
-
-sample({
     clock: createNewProjectMutation.finished.success,
-    source: {
-        limit: $limit,
-        offset: $offset
-    },
-    target: [
-        projectsQuery.start
-    ]
+    source: $offset,
+    fn: (offset) => offset + 1,
+    target: $offset
 })

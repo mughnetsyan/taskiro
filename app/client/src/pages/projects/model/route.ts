@@ -7,7 +7,6 @@ import { chainAuthorized } from "entities/session";
 import { baseRoutes } from "shared/routing";
 import { $limit, $offset, $projects, projectsQuery } from "./model";
 import { reset } from "patronum";
-import { createNewProjectMutation } from "features/create-new-entity";
 
 
 export const startProjectsQuery = createEvent<RouteParamsAndQuery<any>>()
@@ -31,7 +30,6 @@ sample({
 reset({
     clock: [
         projectsRoute.closed,
-        createNewProjectMutation.finished.success
     ],
     target: [
         $offset,
