@@ -1,0 +1,27 @@
+---
+import Button from 'shared/ui/button/button.astro'
+
+import styles from './hero.module.css'
+
+import mainImg from '../assets/main-image.png'
+import leftImg from '../assets/left-image.png'
+import rightImg from '../assets/right-image.png'
+
+---
+
+<div class={styles.hero}>
+    <h1 class={styles.title}>Break the routine with <span>Taskiro</span></h1>
+    <h2 class={styles.subtitle}>
+        ultimate task manager that solves problems with planning, <br> 
+        time management and organization of processes
+    </h2>
+    <div class={styles.auth__container}>
+        <Button>Become a member</Button>
+        <Button intent="secondary">Already a member?</Button>
+    </div>
+    <div class={styles.images}>
+        <img class={styles.images__left} src={leftImg.src} alt="">
+        <img src={mainImg.src} alt="">
+        <img class={styles.images__right} src={rightImg.src} alt="">
+    </div>
+</div>

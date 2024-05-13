@@ -1,0 +1,31 @@
+---
+import { cva } from 'class-variance-authority'
+
+import styles from './button.module.css'
+
+
+const button = cva(styles.btn, {
+    variants: {
+        intent: {
+            primary: styles.primary,
+            secondary: styles.secondary,
+        },
+        size: {
+            md: styles.md,
+            lg: styles.lg
+        }
+    },
+    defaultVariants: {
+        intent: 'primary',
+        size: 'md'
+    }
+})
+
+
+const { className, intent, size } = Astro.props
+ 
+---
+
+<button class={button({ className, intent, size })}>
+    <slot/>
+</button>

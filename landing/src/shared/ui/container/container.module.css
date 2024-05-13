@@ -1,0 +1,11 @@
+.container {
+    margin: 0 auto;
+}
+
+.md {
+    max-width: 1040px;
+}
+
+.lg {
+    max-width: 1200px;
+}

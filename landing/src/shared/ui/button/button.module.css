@@ -1,0 +1,51 @@
+.btn {
+    transition: .2s;
+
+    cursor: pointer;
+}
+
+@media(hover) {
+    .btn:hover {
+        transform: translateY(4px);
+    }
+}
+
+.btn:focus-visible {
+    transform: translateY(4px);
+
+    outline: none;
+}
+
+.btn:active {
+    transform: translateY(8px); /* TODO: reconsider this parameter (12px?) */
+} 
+
+.primary {
+    background: var(--black);
+
+    color: var(--white);
+}
+
+.secondary {
+    background: transparent;
+
+    border: 1px solid var(--black);
+}
+
+.md {
+    padding: 8px 24px;
+
+    border-radius: 18px;
+
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.lg {
+    padding: 12px 64px;
+
+    border-radius: 24px;
+
+    font-size: 16px;
+    font-weight: 500;
+}
