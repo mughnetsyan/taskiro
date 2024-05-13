@@ -13,7 +13,7 @@ export const startProjectsQuery = createEvent<RouteParamsAndQuery<any>>()
 
 
 export const projectsRoute = chainRoute({
-    route: chainAuthorized(baseRoutes.projects),
+    route: chainAuthorized(baseRoutes.projects.overview),
     beforeOpen: startProjectsQuery,
     openOn: projectsQuery.finished.success
 })

@@ -33,7 +33,7 @@ export const Dashboard = () => {
                         { projects }
                     </div>
                     {hasMore && (
-                        <Link className={styles.more} to={baseRoutes.projects}>
+                        <Link className={styles.more} to={baseRoutes.projects.overview}>
                             <img src={arrowRight} alt="More" />
                         </Link>
                     )}

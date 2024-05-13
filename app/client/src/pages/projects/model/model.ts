@@ -55,7 +55,7 @@ sample({
 
 sample({
     clock: $offset,
-    filter: baseRoutes.projects.$isOpened,
+    filter: baseRoutes.projects.overview.$isOpened,
     fn: () => {},
     target: loadedMoreProjects
 })

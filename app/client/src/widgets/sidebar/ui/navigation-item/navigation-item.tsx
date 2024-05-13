@@ -11,17 +11,17 @@ import { useUnit } from 'effector-react'
 
 interface Props {
     route: RouteInstance<any>
+    isActive: boolean,
     children?: ReactNode
     src?: string
 }
 
 
-export const NavigationItem = ({route, children, src}: Props) => {
-    const active = useUnit(route.$isOpened)
+export const NavigationItem = ({route, isActive, children, src}: Props) => {
 
     return (
-        <Link className={cx(styles.link,active && styles.link__active )} to={route}>
-            <img className={styles.img} src={src} alt="icon"/>
+        <Link className={cx(styles.link, isActive && styles.link__active )} to={route}>
+            <img className={styles.img} src={src} alt="Navigation Icon"/>
             {children}
         </Link>
     )

@@ -1,10 +1,14 @@
 import { Link } from 'atomic-router-react'
 
+import { useList, useUnit } from 'effector-react'
+
 import { CreateNewProject } from 'features/create-new-entity'
 
 import { SessionCard } from 'entities/session/'
 
 import { baseRoutes } from 'shared/routing'
+
+import { $links } from '../model'
 
 import { NavigationItem } from './navigation-item'
 import { CurrentDate } from './current-date'
@@ -12,12 +16,20 @@ import { CurrentDate } from './current-date'
 import styles from './sidebar.module.css'
 
 import logo from '../assets/logo.svg'
-import dashobardImg from '../assets/dashboard.svg'
-import projectsImg from '../assets/projects.svg'
-
 
 
 export const Sidebar = () => {
+    const navigation = useList($links, {
+        getKey: (link) => link.label,
+        fn(link) {
+          const isActive = useUnit(link.active?.$isOpened ?? link.route.$isOpened)
+
+          return (
+            <NavigationItem route={link.route} isActive={isActive} src={link.iconSrc}>{link.label}</NavigationItem>
+          )
+        }
+    })
+
     return (
         <aside className={styles.sidebar}>
             <section className={styles.body}>
@@ -26,8 +38,7 @@ export const Sidebar = () => {
                 </Link>
                 <SessionCard />
                 <nav className={styles.navigation}>
-                    <NavigationItem route={baseRoutes.dashboard} src={dashobardImg}>Dashboard</NavigationItem>
-                    <NavigationItem route={baseRoutes.projects} src={projectsImg}>Projects</NavigationItem>
+                    {navigation}
                 </nav>
             </section>
             <section className={styles.actions}>
