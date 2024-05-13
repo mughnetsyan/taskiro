@@ -37,4 +37,10 @@ export class ProjectService {
             count
         }
     }
+
+    async getProject(id: number) {
+        const project = await this.projectRepository.findByPk(id)
+
+        return project
+    }
 }

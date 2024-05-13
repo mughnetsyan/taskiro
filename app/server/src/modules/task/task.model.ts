@@ -15,7 +15,7 @@ export class Task extends Model<Task, unknown> {
     @Column({type: DataType.STRING, allowNull: false})
     text: string
 
-    @Column({type: DataType.STRING, defaultValue: false})
+    @Column({type: DataType.BOOLEAN, defaultValue: false})
     completed: boolean
 
     @BelongsTo(() => Project, 'projectId')

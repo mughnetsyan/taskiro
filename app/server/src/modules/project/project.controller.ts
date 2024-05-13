@@ -1,4 +1,4 @@
-import { BadRequestException, Controller, Get, HttpCode, Post, Query, Req, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Controller, Get, HttpCode, Param, Post, Query, Req, UnauthorizedException } from '@nestjs/common';
 import { Request } from 'express';
 
 import { SessionService } from 'modules/session';
@@ -31,6 +31,13 @@ export class ProjectController {
       projects,
       count
     }
+  }
+
+  @Get('/:id')
+  async getProject(@Param('id') id: string) {
+    const task = await this.projectService.getProject(parseInt(id))
+
+    return task
   }
 
   @Post()
