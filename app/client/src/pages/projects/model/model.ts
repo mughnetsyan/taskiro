@@ -1,4 +1,4 @@
-import { createEvent, createStore, sample } from "effector";
+import { combine, createEvent, createStore, sample } from "effector";
 
 import { applyBarrier } from "@farfetched/core";
 
@@ -13,69 +13,69 @@ import { Project } from "shared/api";
 
 import { LIMIT, OFFSET_STEP } from "../config";
 import { baseRoutes } from "shared/routing";
-import { debug, not } from "patronum";
-
-
-export const loadedMoreProjects = createEvent()
-
+import { debug, not, spread } from "patronum";
 
 
 export const $limit = createStore(LIMIT)
 
 export const $offset = createStore(0)
 
-export const $hasMore = createStore<boolean>(false)
-
-export const $projects = createStore<Project[]>([])
-
-
 export const projectsQuery = invoke(createProjectsQuery)
 
 applyBarrier(projectsQuery, { barrier: authBarrier })
 
-// TODO: FIX THIS LATER
+export const triggeredLoadingMoreProjects = createEvent()
+export const loadedMoreProjects = createEvent()
 
-sample({
-    clock: sample({
-        clock: loadedMoreProjects,
-        filter: not(projectsQuery.$pending)
-    }),
-    source: $offset,
-    filter: $hasMore,
-    fn: (offset) => offset + OFFSET_STEP,
-    target: $offset
-})
+export const $projects = createStore<Project[]>([])
+export const $count = createStore(0)
+export const $hasMore = combine($count, $limit, $offset, (count, limit, offset) => count >= Math.max(limit, offset))
 
-
-sample({
-    clock: sample({
-        clock: $offset,
-        filter: baseRoutes.projects.$isOpened,
-    }),
-    source: {
-        limit: $limit,
-        offset: $offset,
-    },
-    target: projectsQuery.start
-})
 
 sample({
     clock: projectsQuery.$data,
     source: $projects,
-    filter: (_, result) => result?.projects !== null,
-    fn: (projects, result) => [...projects, ...result?.projects as Project[]],
-    target: $projects
+    fn: (projects, result) => ({
+        projects: [...projects, ...result?.projects as Project[]],
+        count: result?.count as number
+    }),
+    target: spread({
+        projects: $projects,
+        count: $count
+    })
 })
 
 sample({
-    clock: projectsQuery.$data,
-    fn: (result) => result?.hasMore as boolean,
-    target: $hasMore
+    clock: triggeredLoadingMoreProjects,
+    source: $offset,
+    filter: not(projectsQuery.$pending),
+    fn: (offset) => offset + OFFSET_STEP,
+    target: $offset
+})
+
+sample({
+    clock: $offset,
+    filter: baseRoutes.projects.$isOpened,
+    fn: () => {},
+    target: loadedMoreProjects
+})
+
+sample({
+    clock: loadedMoreProjects,
+    source: {
+        limit: $limit,
+        offset: $offset,
+    },
+    filter: $hasMore,
+    target: projectsQuery.start
 })
 
 sample({
     clock: createNewProjectMutation.finished.success,
-    source: $offset,
-    fn: (offset) => offset + 1,
-    target: $offset
+    source: $count,
+    fn: (count) => ({
+        limit: 1,
+        offset: count
+    }),
+    target: projectsQuery.start
 })

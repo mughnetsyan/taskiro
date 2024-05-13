@@ -1,4 +1,4 @@
-import { useUnit } from "effector-react"
+import { useList, useUnit } from "effector-react"
 
 import { BaseLayout } from "widgets/layouts"
 
@@ -7,7 +7,7 @@ import { ProjectCard } from "entities/project"
 import { baseRoutes } from "shared/routing"
 import { Section } from "shared/ui"
 
-import { projectsQuery } from "../model"
+import { $hasMore, $projects, projectsQuery } from "../model"
 
 import styles from './dashboard.module.css'
 import { Link } from "atomic-router-react"
@@ -16,29 +16,27 @@ import arrowRight from '../assets/projects-arrow-right.svg'
 
 
 export const Dashboard = () => {
-
-    const data = useUnit(projectsQuery.$data)
-
-    const projects = data?.projects || []
-    const hasMore = data?.hasMore || false
+    const projects = useList($projects, {
+        fn: ({id, name, description}) => (
+          <ProjectCard key={id} name={name} description={description} />
+        ),
+        placeholder: <ProjectCard key='placeholder' name="No projects here!" description="Create new ones!" />
+      })
+    
+    const hasMore = useUnit($hasMore)
 
     return (
         <BaseLayout title="Dashboard">
             <Section title="Projects">
                 <div  className={styles.section}>
                     <div className={styles.projects}>
-                        {
-                            projects && 
-                            projects.map(({id, name, description}) => <ProjectCard key={id} name={name} description={description}/>)
-                        }
+                        { projects }
                     </div>
-                    {
-                        hasMore && (
-                            <Link className={styles.more} to={baseRoutes.projects}>
-                                <img src={arrowRight} alt="More" />
-                            </Link>
-                        )
-                    }
+                    {hasMore && (
+                        <Link className={styles.more} to={baseRoutes.projects}>
+                            <img src={arrowRight} alt="More" />
+                        </Link>
+                    )}
                 </div>
             </Section>
         </BaseLayout>

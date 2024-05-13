@@ -6,7 +6,7 @@ export const projectContract: Contract<unknown, Project> = {
     getErrorMessages: () => ['error']
 }
 
-export const projectsContract: Contract<unknown, { projects: Project[], hasMore: boolean }> = {
-    isData: (data): data is { projects: Project[], hasMore: boolean } => true,
+export const projectsContract: Contract<unknown, { projects: Project[], count: number }> = {
+    isData: (data): data is { projects: Project[], count: number } => true,
     getErrorMessages: () => ['error']
 }

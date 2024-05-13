@@ -2,7 +2,7 @@ import { useRef } from "react"
 
 import { useList, useUnit } from "effector-react"
 
-import { loadedMoreProjects, projectsQuery } from "../model"
+import { triggeredLoadingMoreProjects, projectsQuery } from "../model"
 
 import { BaseLayout } from "widgets/layouts"
 
@@ -16,16 +16,19 @@ import styles from './projects.module.css'
 
 
 export const Projects = () => {
-  const projects = useList($projects, ({id, name, description}) => (
-    <ProjectCard key={id} name={name} description={description} />
-  ))
+  const projects = useList($projects, {
+    fn: ({id, name, description}) => (
+      <ProjectCard key={id} name={name} description={description} />
+    ),
+    placeholder: <ProjectCard key='placeholder' name="No projects here!" description="Create new ones!" />
+  })
 
   const loadingFinished = useUnit(projectsQuery.$finished)
 
   const loaderRef = useRef(null)
-  const loadMoreProjects = useUnit(loadedMoreProjects)
+  const triggerLoadingMoreProjects = useUnit(triggeredLoadingMoreProjects)
 
-  useObserver(loaderRef, loadMoreProjects, [loadingFinished])
+  useObserver(loaderRef, triggerLoadingMoreProjects, [loadingFinished])
 
   return (
     <BaseLayout title="Projects">

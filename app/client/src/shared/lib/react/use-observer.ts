@@ -4,6 +4,7 @@ export const useObserver = (ref: RefObject<Element>, whenTargetIsIntersectingFn:
     useEffect(() => {
       const observer = new IntersectionObserver((entries) => {
         const target = entries[0]
+        
         if (target.isIntersecting) {
           whenTargetIsIntersectingFn()
         }
