@@ -27,13 +27,7 @@ export class ProjectController {
 
     const { projects, count } = await this.projectService.getProjectsAndCount({userId, limit: parseInt(limit), offset: parseInt(offset)})
 
-    let hasMore: boolean
-
-    if(limit > offset) {
-      hasMore = count >= parseInt(limit)
-    } else {
-      hasMore = count >= parseInt(offset)
-    }
+    const hasMore = count >= parseInt(limit) + parseInt(offset)
 
     return {
       projects,
