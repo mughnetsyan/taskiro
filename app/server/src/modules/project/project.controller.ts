@@ -26,12 +26,10 @@ export class ProjectController {
     const { userId } = decodedAccessToken
 
     const { projects, count } = await this.projectService.getProjectsAndCount({userId, limit: parseInt(limit), offset: parseInt(offset)})
-
-    const hasMore = count >= parseInt(limit) + parseInt(offset)
-
+    
     return {
       projects,
-      hasMore
+      count
     }
   }
 
