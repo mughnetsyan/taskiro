@@ -142,10 +142,6 @@
     transform: translateY(-4px);
 }
 
-.submitButton:active {
-    transform: translateY(2px);
-}
-
 @keyframes overlayShow {
     from {
       opacity: 0;

@@ -30,9 +30,12 @@ export const $createNewProjectForm = createForm({
 sample({
     clock: $createNewProjectForm.formValidated,
     target: [
-        $createNewProjectForm.reset,
-        
         createNewProjectMutation.start,
         modalToggled
     ],
+})
+
+sample({
+    clock: modalToggled,
+    target: $createNewProjectForm.reset
 })

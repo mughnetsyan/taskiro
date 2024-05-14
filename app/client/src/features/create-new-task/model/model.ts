@@ -29,9 +29,12 @@ sample({
     source: baseRoutes.projects.project.$params,
     fn: (params, formData) => ({...formData, projectId: params.id}), 
     target: [
-        $createNewTaskForm.reset,
-        
         createNewTaskMutation.start,
         modalToggled
     ],
+})
+
+sample({
+    clock: modalToggled,
+    target: $createNewTaskForm.reset
 })
