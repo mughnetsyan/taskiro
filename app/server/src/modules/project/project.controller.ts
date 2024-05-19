@@ -35,9 +35,9 @@ export class ProjectController {
 
   @Get('/:id')
   async getProject(@Param('id') id: string) {
-    const task = await this.projectService.getProject(parseInt(id))
+    const project = await this.projectService.getProject(parseInt(id))
 
-    return task
+    return project
   }
 
   @Post()
