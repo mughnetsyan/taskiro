@@ -1,0 +1,55 @@
+.column {
+    display: flex;
+    flex-direction: column;
+
+    gap: 16px;
+}
+
+.name {
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--charcoal);
+}
+
+.tasks {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.header {
+    display: flex;
+    align-self: flex-start;
+
+    gap: 16px;
+}
+
+.deleteButton {
+    background: transparent;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+
+@media(hover) {
+    .deleteButton {
+        opacity: 0;
+    }
+
+    .header:hover .deleteButton {
+        opacity: 1;
+    }
+}
+
+@media(hover: none) {
+    .deleteButton {
+        opacity: 1;
+    }
+}
+
+.header:focus-visible .deleteButton {
+    opacity: 1;
+}

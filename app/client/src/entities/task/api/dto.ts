@@ -1,9 +1,9 @@
 export type TasksQueryDto = {
-    projectId: number
+    columnId: number
 }
 
 export type CreateTaskDto = {
-    projectId: number,
+    columnId: number,
     text: string
 }
 

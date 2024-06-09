@@ -15,7 +15,7 @@ export const createTasksQuery = createFactory(() => (
         request: {
             method: 'GET',
             url: getRequestPath('tasks'),
-            query: ({projectId}) => ({projectId}),
+            query: ({columnId}) => ({columnId}),
             credentials: 'include',
         },
         response: {

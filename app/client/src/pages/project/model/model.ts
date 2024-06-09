@@ -1,29 +1,29 @@
 import { createStore, sample } from "effector";
 import { applyBarrier } from "@farfetched/core";
 import { invoke } from "@withease/factories";
+import { spread } from "patronum";
+
+import { createNewTaskMutation } from "features/create-new-task";
+import { createColumnMutation } from "features/create-new-column";
 
 import { authBarrier } from "entities/session";
-
+import { deleteTaskMutation } from "entities/task";
 import { createProjectQuery } from "entities/project";
-import { spread } from "patronum";
-import { createTasksQuery, deleteTaskMutation } from "entities/task";
-import { Task } from "shared/api";
+import { createColumnsQuery, deleteColumnMutation } from "entities/column";
+
+
+import { Column } from "shared/api";
 import { baseRoutes } from "shared/routing";
-import { createNewTaskMutation } from "features/create-new-task";
+
 
 
 export const projectQuery = invoke(createProjectQuery)
-export const tasksQuery = invoke(createTasksQuery)
+export const columnsQuery = invoke(createColumnsQuery)
 
-applyBarrier([projectQuery, tasksQuery],  { barrier: authBarrier })
-
-export const $tasks = createStore<Task[]>([])
-
-$tasks
-    .on(tasksQuery.$data, (_, tasks) => tasks ? tasks : [])
+applyBarrier([projectQuery, columnsQuery],  { barrier: authBarrier })
 
 export const $name = createStore<string>('')
-
+export const $columns = createStore<Column[]>([])
 
 sample({
     clock: projectQuery.$data,
@@ -34,8 +34,19 @@ sample({
 })
 
 sample({
-    clock: [createNewTaskMutation.finished.success, deleteTaskMutation.finished.success],
+    clock: columnsQuery.$data,
+    filter: Boolean,
+    target: $columns
+})
+
+sample({
+    clock: [
+        createNewTaskMutation.finished.success, 
+        deleteTaskMutation.finished.success,
+        createColumnMutation.finished.success,
+        deleteColumnMutation.finished.success
+    ],
     source: baseRoutes.projects.project.$params,
     fn: ({id}) => ({projectId: id}),
-    target: tasksQuery.start
+    target: columnsQuery.start
 })

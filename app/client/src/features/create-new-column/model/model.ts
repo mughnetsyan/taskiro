@@ -3,8 +3,9 @@ import { invoke } from "@withease/factories";
 import { createEvent, createStore, sample } from "effector";
 import { createForm } from "effector-forms";
 
-import { createCreateNewProjectMutation } from "entities/project";
+import { createCreateNewColumnMutation } from "entities/column";
 import { authBarrier } from "entities/session";
+import { baseRoutes } from "shared/routing";
 
 
 export const $isModalOpened = createStore(false)
@@ -15,31 +16,32 @@ $isModalOpened
     .on(modalToggled, (opened) => !opened)
 
 
-export const createNewProjectMutation = invoke(createCreateNewProjectMutation)
+    
+export const createColumnMutation = invoke(createCreateNewColumnMutation)
 
-applyBarrier(createNewProjectMutation, { barrier: authBarrier })
+applyBarrier(createColumnMutation, { barrier: authBarrier })
 
 
-export const $createNewProjectForm = createForm({
+export const $createNewColumnForm = createForm({
     fields: {
         name:  {
-            init: ""
-        },
-        description: {
             init: ""
         }
     }
 })
 
 sample({
-    clock: $createNewProjectForm.formValidated,
+    clock: $createNewColumnForm.formValidated,
+    source: baseRoutes.projects.project.$params,
+    fn: ({id}, {name}) => ({projectId: id, name}),
     target: [
-        createNewProjectMutation.start,
+        createColumnMutation.start,
         modalToggled
     ]
 })
 
+
 sample({
     clock: modalToggled,
-    target: $createNewProjectForm.reset
+    target: $createNewColumnForm.reset
 })

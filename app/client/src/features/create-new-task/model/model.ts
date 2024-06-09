@@ -3,18 +3,20 @@ import { createForm } from "effector-forms"
 
 import { invoke } from "@withease/factories"
 import { createCreateNewTaskMutation } from "entities/task"
-import { baseRoutes } from "shared/routing"
+import { authBarrier } from "entities/session"
+import { applyBarrier } from "@farfetched/core"
 
-export const $isModalOpened = createStore(false)
 
-export const modalToggled = createEvent()
+export const $columnId = createStore<number | null>(null)
 
-$isModalOpened
-    .on(modalToggled, (opened) => !opened)
+export const currentColumnIdSet = createEvent<{columnId: number}>()
+
+export const submitCreateNewTaskForm = createEvent()
 
 
 export const createNewTaskMutation = invoke(createCreateNewTaskMutation)
 
+applyBarrier(createNewTaskMutation, { barrier: authBarrier })
 
 export const $createNewTaskForm = createForm({
     fields: {
@@ -26,15 +28,20 @@ export const $createNewTaskForm = createForm({
 
 sample({
     clock: $createNewTaskForm.formValidated,
-    source: baseRoutes.projects.project.$params,
-    fn: (params, formData) => ({...formData, projectId: params.id}), 
+    source: $columnId,
+    filter: Boolean,
+    fn: (columnId, formData) => ({...formData, columnId}), 
     target: [
         createNewTaskMutation.start,
-        modalToggled
-    ],
+    ]
 })
 
+
 sample({
-    clock: modalToggled,
-    target: $createNewTaskForm.reset
+    clock: currentColumnIdSet,
+    fn: ({columnId}) => columnId,
+    target: [
+        $columnId,
+        $createNewTaskForm.reset
+    ]
 })

@@ -1,14 +1,19 @@
-.button {
-    width: 100%;
-
+.triggerButton {
     display: flex;
     align-items: center;
     justify-content: center;
 
-    padding: 16px 0;
+    align-self: flex-start;
+    justify-self: start;
 
-    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='8' ry='8' stroke='%23333' stroke-width='1' stroke-dasharray='5%2c 5' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
-    border-radius: 8px;
+    width: 24px;
+    height: 24px;
+
+    margin-top: 8px;
+
+    background: #A3A3A3;
+
+    border-radius: 50%;
 
     transition: .2s;
 
@@ -17,19 +22,15 @@
 }
 
 @media(hover) {
-    .button:hover {
-        transform: translateY(-4px);
+    .triggerButton:hover {
+        background: var(--charcoal);
     }
+
 }
 
-.button:focus-visible {
-    transform: translateY(-4px);
+.triggerButton:focus-visible {
+    background: var(--charcoal);
 }
-
-.button:active {
-    transform: translateY(2px);
-}
-
 
 .overlay {
     background-color: rgba(0, 0, 0, 0.7);
@@ -101,14 +102,8 @@
     gap: 12px;
 }
 
-.textarea {
-    all: unset;
-
-    max-height: 120px;
-
-    resize: vertical;
-
-    padding: 16px 20px;
+.input {
+    padding: 12px 20px;
 
     background: var(--mercury);
     border-radius: 12px;

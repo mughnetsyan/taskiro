@@ -2,7 +2,7 @@ import * as Dialog from '@radix-ui/react-dialog'
 
 import { useUnit } from 'effector-react'
 import { useForm } from 'effector-forms'
-import { FormEvent } from 'react'
+import { FormEvent, useState } from 'react'
 
 import styles from './create-new-task.module.css'
 
@@ -10,12 +10,19 @@ import createImg from '../assets/create.svg'
 import closeImg from '../assets/cross.svg'
 
 
-import { $createNewTaskForm, $isModalOpened, modalToggled } from '../model'
+import { $createNewTaskForm, currentColumnIdSet, } from '../model'
 
-export const CreateNewTask = () => {
-    const isModalOpened = useUnit($isModalOpened)
 
-    const toggleModal = useUnit(modalToggled)
+interface Props {
+    columnId: number
+}
+
+// seems to be a piece of shit, but im not sure
+// implement using keyval later
+export const CreateNewTask = ({columnId}: Props) => {
+    const [isModalOpened, setIsModalOpened] = useState(false)
+    
+    const setCurrentColumnId = useUnit(currentColumnIdSet)
 
     const { fields, submit } = useForm($createNewTaskForm)
 
@@ -23,7 +30,16 @@ export const CreateNewTask = () => {
         e.preventDefault()
 
         submit()
+
+        setIsModalOpened((isModalOpened) => !isModalOpened)
     }
+
+    function toggleModal() {
+        setCurrentColumnId({columnId})
+
+        setIsModalOpened((isModalOpened) => !isModalOpened)
+    }
+
 
     return (
         <Dialog.Root open={isModalOpened} onOpenChange={toggleModal}>

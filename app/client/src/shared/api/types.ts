@@ -12,6 +12,13 @@ export type Project = {
     description: string,
 }
 
+export type Column = {
+    id: number,
+    projectId: number,
+    name: string,
+    tasks: Task[]
+}
+
 export type Session = {
     name: string,
     login: string,

@@ -1,33 +1,65 @@
+import { useList, useUnit } from 'effector-react'
+import useEmblaCarousel from 'embla-carousel-react'
+
 import { BaseLayout } from 'widgets/layouts'
 
-import { useList, useUnit } from 'effector-react'
+import { CreateNewTask } from 'features/create-new-task'
+import { CreateNewColumn } from 'features/create-new-column'
 
 import { TaskCard } from 'entities/task'
-import { Section } from 'shared/ui'
+import { Column } from 'entities/column'
 
-import { $name, $tasks } from '../model'
+import { Section } from 'shared/ui'
+import { useSliderControls } from 'shared/lib/embla'
+
+import { $columns, $name } from '../model'
+import { carouselOptions } from '../config'
+import { SliderControl } from './slider-control'
 
 
 import styles from './project.module.css'
-import { CreateNewTask } from 'features/create-new-task'
-
 
 
 export const Project = () => {
+    const [carouselRef, carouselApi] = useEmblaCarousel(carouselOptions)
+
+    const sliderControlsApi = useSliderControls(carouselApi)
+
     const name = useUnit($name)
 
-    const tasks = useList($tasks, {
-        fn({id, text, completed}) {
-            return <TaskCard id={id} text={text} completed={completed} />
+    const columns = useList($columns, {
+        fn({id, name, tasks}) {
+            return (
+                <Column 
+                    id={id}
+                    key={id}
+                    name={name}
+                    className={styles.column}
+                    createNewTaskSlot={<CreateNewTask columnId={id}/>}
+                >
+                    {tasks.map(({id, text, completed}) => {
+                        return <TaskCard id={id} key={id} text={text} completed={completed} />
+                    })}
+                </Column>
+            )
         }
     })
-
+    
     return (
         <BaseLayout title={name}>
-            <Section title='Tasks'>
-                <div className={styles.section}>
-                    {tasks}
-                    <CreateNewTask />
+            <Section className={styles.slider} onMouseMove={e => e.stopPropagation()}>
+                <div className={styles.sliderControlsGroup}>
+                    <SliderControl sliderControlsApi={sliderControlsApi} mode='prev'/>
+                    <SliderControl sliderControlsApi={sliderControlsApi} mode='next'/>
+                </div>
+
+                <div className={styles.sliderViewport} ref={carouselRef}>
+                    <div className={styles.columns}>
+                        {columns}
+                        <div className={styles.createNewColumnContainer}>
+                            <CreateNewColumn />
+                        </div>
+                    </div>
                 </div>
             </Section>
         </BaseLayout>

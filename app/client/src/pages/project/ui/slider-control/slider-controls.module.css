@@ -1,0 +1,14 @@
+.control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+
+    background: var(--white);
+    border-radius: 50%;
+
+    cursor: pointer;
+    user-select: none;
+}
