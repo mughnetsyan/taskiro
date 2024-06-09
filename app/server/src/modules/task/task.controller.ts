@@ -17,8 +17,8 @@ export class TaskController {
 
   @Get()
   @HttpCode(200)
-  async getTasksByProjectId(@Query('projectId') projectId: string) {
-    const tasks = await this.taskService.getTasksByProjectId({projectId: parseInt(projectId)})
+  async getTasksByColumnId(@Query('columnId') columnId: string) {
+    const tasks = await this.taskService.getTasksByColumnId({columnId: parseInt(columnId)})
 
     return tasks
   }

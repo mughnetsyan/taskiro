@@ -11,7 +11,6 @@ export class Project extends Model<Project, unknown> {
     id: number
 
     @ForeignKey(() => User)
-    // @Column({type: DataType.STRING, allowNull: false})
     userId: number
 
     @Column({type: DataType.STRING, allowNull: false})

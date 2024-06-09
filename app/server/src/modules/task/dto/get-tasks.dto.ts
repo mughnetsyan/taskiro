@@ -1,3 +1,3 @@
 export type GetTasksDto = {
-    projectId: number
+    columnId: number
 }

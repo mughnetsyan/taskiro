@@ -1,4 +1,4 @@
-import { Get, Injectable, Patch } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 
 import { Task } from './task.model';
@@ -14,19 +14,19 @@ export class TaskService {
     ) {}
 
     async createTask(dto: CreateTaskDto) {
-        const completed = false
+        const defaultCompleted = false
 
-        const task = await this.taskRepository.create({...dto, completed})
+        const task = await this.taskRepository.create({...dto, completed: defaultCompleted})
 
         return task
     }
 
-    async getTasksByProjectId(dto: GetTasksDto) {
-        const { projectId } = dto
+    async getTasksByColumnId(dto: GetTasksDto) {
+        const { columnId } = dto
 
         const tasks = await this.taskRepository.findAll({
             where: {
-                projectId
+                columnId
             },
             order: [
                 ['id', 'ASC']

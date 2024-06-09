@@ -1,4 +1,4 @@
 export type CreateTaskDto = {
-    projectId: number,
+    columnId: number,
     text: string,
 }
