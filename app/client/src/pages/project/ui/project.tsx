@@ -12,10 +12,10 @@ import { Column } from 'entities/column'
 import { Section } from 'shared/ui'
 import { useSliderControls } from 'shared/lib/embla'
 
-import { $columns, $name } from '../model'
-import { carouselOptions } from '../config'
 import { SliderControl } from './slider-control'
 
+import { $columns, $name, $$taskModel, $$columnModel } from '../model'
+import { carouselOptions } from '../config'
 
 import styles from './project.module.css'
 
@@ -31,6 +31,7 @@ export const Project = () => {
         fn({id, name, tasks}) {
             return (
                 <Column 
+                    model={$$columnModel}
                     id={id}
                     key={id}
                     name={name}
@@ -38,7 +39,7 @@ export const Project = () => {
                     createNewTaskSlot={<CreateNewTask columnId={id}/>}
                 >
                     {tasks.map(({id, text, completed}) => {
-                        return <TaskCard id={id} key={id} text={text} completed={completed} />
+                        return <TaskCard model={$$taskModel} id={id} key={id} text={text} completed={completed} />
                     })}
                 </Column>
             )

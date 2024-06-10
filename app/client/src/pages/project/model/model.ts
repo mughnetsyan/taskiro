@@ -7,23 +7,25 @@ import { createNewTaskMutation } from "features/create-new-task";
 import { createColumnMutation } from "features/create-new-column";
 
 import { authBarrier } from "entities/session";
-import { deleteTaskMutation } from "entities/task";
 import { createProjectQuery } from "entities/project";
-import { createColumnsQuery, deleteColumnMutation } from "entities/column";
-
+import { createColumnModel, createColumnsQuery } from "entities/column";
 
 import { Column } from "shared/api";
 import { baseRoutes } from "shared/routing";
+import { createTaskModel } from "entities/task";
 
 
+export const $$taskModel = invoke(createTaskModel)
+export const $$columnModel = invoke(createColumnModel)
 
 export const projectQuery = invoke(createProjectQuery)
 export const columnsQuery = invoke(createColumnsQuery)
 
-applyBarrier([projectQuery, columnsQuery],  { barrier: authBarrier })
-
 export const $name = createStore<string>('')
 export const $columns = createStore<Column[]>([])
+
+
+applyBarrier([projectQuery, columnsQuery],  { barrier: authBarrier })
 
 sample({
     clock: projectQuery.$data,
@@ -42,9 +44,9 @@ sample({
 sample({
     clock: [
         createNewTaskMutation.finished.success, 
-        deleteTaskMutation.finished.success,
         createColumnMutation.finished.success,
-        deleteColumnMutation.finished.success
+        $$taskModel.deleteTaskMutation.finished.success,
+        $$columnModel.deleteColumnMutation.finished.success
     ],
     source: baseRoutes.projects.project.$params,
     fn: ({id}) => ({projectId: id}),

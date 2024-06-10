@@ -7,24 +7,24 @@ import styles from './task-card.module.css'
 import checkmarkImg from '../assets/checkmark.svg'
 import deleteImg from '../assets/delete.svg'
 
-import { taskDeleted, taskToggled } from '../model'
 import { useState } from 'react'
 import { cx } from 'class-variance-authority'
+import { createTaskModel } from '../model'
 
 
 
 interface Props {
+    model: ReturnType<typeof createTaskModel>,
     id: number,
     text: string,
     completed: boolean,
 }
 
 
-export const TaskCard = ({id, text, completed}: Props) => {
+export const TaskCard = ({model, id, text, completed}: Props) => {
     const [checked, setChecked] = useState(completed)
 
-    const toggleTask = useUnit(taskToggled)
-    const deleteTask = useUnit(taskDeleted)
+    const { taskToggled: toggleTask, taskDeleted: deleteTask } = useUnit(model.events)
 
     function checkHandler() {
         toggleTask({id})

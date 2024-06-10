@@ -1,6 +1,6 @@
 import { useUnit } from 'effector-react'
 
-import { columnDeleted } from '../model'
+import { createColumnModel } from '../model'
 
 import styles from './column.module.css'
 
@@ -9,6 +9,7 @@ import { cx } from 'class-variance-authority'
 
 
 interface Props {
+    model: ReturnType<typeof createColumnModel>,
     id: number,
     name: string,
     className?: string,
@@ -17,8 +18,8 @@ interface Props {
 }
 
 
-export const Column = ({id, name, className, children, createNewTaskSlot}: Props) => {
-    const deleteColumn = useUnit(columnDeleted)
+export const Column = ({model,id, name, className, children, createNewTaskSlot}: Props) => {
+    const { columnDeleted: deleteColumn } = useUnit(model.events)
 
     return (
         <div className={cx(styles.column, className)}>

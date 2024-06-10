@@ -1,17 +1,29 @@
 import { createEvent, sample } from "effector";
-import { invoke } from "@withease/factories";
+import { createFactory, invoke } from "@withease/factories";
 
 import { createDeleteColumnMutation } from "../api";
 import { authBarrier } from "entities/session";
 import { applyBarrier } from "@farfetched/core";
 
-export const columnDeleted = createEvent<{id: number}>()
+export const createColumnModel = createFactory(() => {
+    const columnDeleted = createEvent<{id: number}>()
 
-export const deleteColumnMutation = invoke(createDeleteColumnMutation)
+    const deleteColumnMutation = invoke(createDeleteColumnMutation)
 
-applyBarrier(deleteColumnMutation, { barrier: authBarrier })
+    applyBarrier(deleteColumnMutation, { barrier: authBarrier })
 
-sample({
-    clock: columnDeleted,
-    target: deleteColumnMutation.start
+    sample({
+        clock: columnDeleted,
+        target: deleteColumnMutation.start
+    })
+
+    return {
+        events: {
+            columnDeleted
+        },
+
+        deleteColumnMutation
+    }
 })
+
+

@@ -48,6 +48,8 @@
 
 .text_active {
     text-decoration: line-through;
+
+    animation: lineThrough .2s ease-in-out;
 }
 
 .deleteButton {
@@ -70,4 +72,9 @@
       opacity: 1;
       transform: scale(1);
     }
+}
+
+@keyframes lineThrough {
+    from { text-decoration-color: transparent; }
+    to { text-decoration-color: auto; }
 }
