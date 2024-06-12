@@ -4,7 +4,7 @@ import { applyBarrier } from "@farfetched/core";
 
 import { invoke } from "@withease/factories";
 
-import { createNewProjectMutation } from "features/create-new-project";
+import { $$createNewProjectModel } from "widgets/sidebar";
 
 import { authBarrier } from "entities/session";
 import { createProjectsQuery } from "entities/project";
@@ -71,7 +71,7 @@ sample({
 })
 
 sample({
-    clock: createNewProjectMutation.finished.success,
+    clock:  $$createNewProjectModel.createNewProjectMutation.finished.success,
     source: $count,
     fn: (count) => ({
         limit: 1,

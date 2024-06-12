@@ -1,4 +1,5 @@
 import { useUnit } from 'effector-react'
+import { memo, useEffect } from 'react'
 
 import { createColumnModel } from '../model'
 
@@ -19,7 +20,7 @@ interface Props {
 
 
 export const Column = ({model,id, name, className, children, createNewTaskSlot}: Props) => {
-    const { columnDeleted: deleteColumn } = useUnit(model.events)
+    const deleteColumn = useUnit(model.events.columnDeleted)
 
     return (
         <div className={cx(styles.column, className)}>

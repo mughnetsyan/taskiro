@@ -7,7 +7,7 @@ import styles from './task-card.module.css'
 import checkmarkImg from '../assets/checkmark.svg'
 import deleteImg from '../assets/delete.svg'
 
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import { cx } from 'class-variance-authority'
 import { createTaskModel } from '../model'
 
@@ -21,7 +21,7 @@ interface Props {
 }
 
 
-export const TaskCard = ({model, id, text, completed}: Props) => {
+export const TaskCard = memo(({model, id, text, completed}: Props) => {
     const [checked, setChecked] = useState(completed)
 
     const { taskToggled: toggleTask, taskDeleted: deleteTask } = useUnit(model.events)
@@ -48,4 +48,4 @@ export const TaskCard = ({model, id, text, completed}: Props) => {
             </div>
         </div>
     )
-}
+})

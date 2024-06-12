@@ -14,11 +14,11 @@ import { useSliderControls } from 'shared/lib/embla'
 
 import { SliderControl } from './slider-control'
 
-import { $columns, $name, $$taskModel, $$columnModel } from '../model'
+import { $columns, $name, $$taskModel, $$columnModel, $$createNewTaskModel, $$createNewColumnModel } from '../model'
 import { carouselOptions } from '../config'
 
 import styles from './project.module.css'
-
+import { useMemo } from 'react'
 
 export const Project = () => {
     const [carouselRef, carouselApi] = useEmblaCarousel(carouselOptions)
@@ -26,6 +26,8 @@ export const Project = () => {
     const sliderControlsApi = useSliderControls(carouselApi)
 
     const name = useUnit($name)
+
+    const taskModel = useMemo(() => $$taskModel, [])
 
     const columns = useList($columns, {
         fn({id, name, tasks}) {
@@ -36,10 +38,10 @@ export const Project = () => {
                     key={id}
                     name={name}
                     className={styles.column}
-                    createNewTaskSlot={<CreateNewTask columnId={id}/>}
+                    createNewTaskSlot={<CreateNewTask model={$$createNewTaskModel} columnId={id}/>}
                 >
                     {tasks.map(({id, text, completed}) => {
-                        return <TaskCard model={$$taskModel} id={id} key={id} text={text} completed={completed} />
+                        return <TaskCard model={taskModel} id={id} key={id} text={text} completed={completed} />
                     })}
                 </Column>
             )
@@ -58,7 +60,7 @@ export const Project = () => {
                     <div className={styles.columns}>
                         {columns}
                         <div className={styles.createNewColumnContainer}>
-                            <CreateNewColumn />
+                            <CreateNewColumn model={$$createNewColumnModel}/>
                         </div>
                     </div>
                 </div>

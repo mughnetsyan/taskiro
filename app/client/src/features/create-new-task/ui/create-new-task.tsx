@@ -10,21 +10,22 @@ import createImg from '../assets/create.svg'
 import closeImg from '../assets/cross.svg'
 
 
-import { $createNewTaskForm, currentColumnIdSet, } from '../model'
+import { createCreateNewTaskModel} from '../model'
 
 
 interface Props {
+    model: ReturnType<typeof createCreateNewTaskModel>,
     columnId: number
 }
 
 // seems to be a piece of shit, but im not sure
 // implement using keyval later
-export const CreateNewTask = ({columnId}: Props) => {
+export const CreateNewTask = ({model, columnId}: Props) => {
     const [isModalOpened, setIsModalOpened] = useState(false)
     
-    const setCurrentColumnId = useUnit(currentColumnIdSet)
+    const setCurrentColumnId = useUnit(model.events.currentColumnIdSet)
 
-    const { fields, submit } = useForm($createNewTaskForm)
+    const { fields, submit } = useForm(model.form)
 
     function submitHandler(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()

@@ -3,8 +3,7 @@ import { applyBarrier } from "@farfetched/core";
 import { invoke } from "@withease/factories";
 import { spread } from "patronum";
 
-import { createNewTaskMutation } from "features/create-new-task";
-import { createColumnMutation } from "features/create-new-column";
+import { createNewColumnFactory } from "features/create-new-column";
 
 import { authBarrier } from "entities/session";
 import { createProjectQuery } from "entities/project";
@@ -13,10 +12,13 @@ import { createColumnModel, createColumnsQuery } from "entities/column";
 import { Column } from "shared/api";
 import { baseRoutes } from "shared/routing";
 import { createTaskModel } from "entities/task";
+import { createCreateNewTaskModel } from "features/create-new-task";
 
 
 export const $$taskModel = invoke(createTaskModel)
 export const $$columnModel = invoke(createColumnModel)
+export const $$createNewTaskModel = invoke(createCreateNewTaskModel)
+export const $$createNewColumnModel = invoke(createNewColumnFactory)
 
 export const projectQuery = invoke(createProjectQuery)
 export const columnsQuery = invoke(createColumnsQuery)
@@ -43,8 +45,8 @@ sample({
 
 sample({
     clock: [
-        createNewTaskMutation.finished.success, 
-        createColumnMutation.finished.success,
+        $$createNewTaskModel.createNewTaskMutation.finished.success, 
+        $$createNewColumnModel.createNewColumnMutation.finished.success,
         $$taskModel.deleteTaskMutation.finished.success,
         $$columnModel.deleteColumnMutation.finished.success
     ],

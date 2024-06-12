@@ -1,7 +1,7 @@
 import { combine, createStore, sample } from "effector";
 import { invoke } from "@withease/factories";
 
-import { createNewProjectMutation } from "features/create-new-project";
+import { $$createNewProjectModel } from "widgets/sidebar";
 
 import { createProjectsQuery } from "entities/project";
 import { applyBarrier } from "@farfetched/core";
@@ -35,7 +35,7 @@ sample({
 
 
 sample({
-    clock: createNewProjectMutation.finished.success,
+    clock: $$createNewProjectModel.createNewProjectMutation.finished.success,
     source: {
         limit: $limit,
         offset: $offset,

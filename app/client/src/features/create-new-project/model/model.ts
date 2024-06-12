@@ -1,5 +1,5 @@
 import { applyBarrier } from "@farfetched/core";
-import { invoke } from "@withease/factories";
+import { createFactory, invoke } from "@withease/factories";
 import { createEvent, createStore, sample } from "effector";
 import { createForm } from "effector-forms";
 
@@ -7,39 +7,51 @@ import { createCreateNewProjectMutation } from "entities/project";
 import { authBarrier } from "entities/session";
 
 
-export const $isModalOpened = createStore(false)
+export const createNewProjecFactory = createFactory(() => {
+    const $isModalOpened = createStore(false)
 
-export const modalToggled = createEvent()
+    const modalToggled = createEvent()
 
-$isModalOpened
-    .on(modalToggled, (opened) => !opened)
-
-
-export const createNewProjectMutation = invoke(createCreateNewProjectMutation)
-
-applyBarrier(createNewProjectMutation, { barrier: authBarrier })
+    $isModalOpened
+        .on(modalToggled, (opened) => !opened)
 
 
-export const $createNewProjectForm = createForm({
-    fields: {
-        name:  {
-            init: ""
-        },
-        description: {
-            init: ""
+    const createNewProjectMutation = invoke(createCreateNewProjectMutation)
+
+    applyBarrier(createNewProjectMutation, { barrier: authBarrier })
+
+
+    const $createNewProjectForm = createForm({
+        fields: {
+            name:  {
+                init: ""
+            },
+            description: {
+                init: ""
+            }
         }
+    })
+
+    sample({
+        clock: $createNewProjectForm.formValidated,
+        target: [
+            createNewProjectMutation.start,
+            modalToggled
+        ]
+    })
+
+    sample({
+        clock: modalToggled,
+        target: $createNewProjectForm.reset
+    })
+
+    return {
+        events: {
+            modalToggled,
+        },
+        form: $createNewProjectForm,
+
+        $isModalOpened,
+        createNewProjectMutation
     }
-})
-
-sample({
-    clock: $createNewProjectForm.formValidated,
-    target: [
-        createNewProjectMutation.start,
-        modalToggled
-    ]
-})
-
-sample({
-    clock: modalToggled,
-    target: $createNewProjectForm.reset
 })

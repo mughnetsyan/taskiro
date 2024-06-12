@@ -3,7 +3,7 @@ import { useForm } from 'effector-forms'
 import { FormEvent } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 
-import { $createNewColumnForm, $isModalOpened, modalToggled } from '../model'
+import { createNewColumnFactory } from '../model'
 
 import styles from './create-new-column.module.css'
 
@@ -13,16 +13,17 @@ import { cx } from 'class-variance-authority'
 
 
 interface Props {
+    model: ReturnType<typeof createNewColumnFactory>
     className?: string
 }
 
 
-export const CreateNewColumn = ({className}: Props) => {
-    const isModalOpened = useUnit($isModalOpened)
+export const CreateNewColumn = ({model, className}: Props) => {
+    const isModalOpened = useUnit(model.$isModalOpened)
 
-    const toggleModal = useUnit(modalToggled)
+    const toggleModal = useUnit(model.events.modalToggled)
 
-    const { fields, submit } = useForm($createNewColumnForm)
+    const { fields, submit } = useForm(model.form)
 
     function submitHandler(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()

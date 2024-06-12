@@ -8,7 +8,7 @@ import { SessionCard } from 'entities/session/'
 
 import { baseRoutes } from 'shared/routing'
 
-import { $links } from '../model'
+import { $links, $$createNewProjectModel } from '../model'
 
 import { NavigationItem } from './navigation-item'
 import { CurrentDate } from './current-date'
@@ -42,7 +42,7 @@ export const Sidebar = () => {
                 </nav>
             </section>
             <section className={styles.actions}>
-                <CreateNewProject />
+                <CreateNewProject model={$$createNewProjectModel}/>
                 <CurrentDate />
             </section>
         </aside>

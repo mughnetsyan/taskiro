@@ -9,17 +9,21 @@ import styles from './create-new-project.module.css'
 import createImg from '../assets/create.svg'
 import crossImg from '../assets/cross.svg'
 
-import { $createNewProjectForm, $isModalOpened, modalToggled } from '../model'
+import { createNewProjecFactory } from '../model'
 import { useUnit } from 'effector-react'
 
 
+interface Props {
+    model: ReturnType<typeof createNewProjecFactory>
+}
 
-export const CreateNewProject = () => {
-    const isModalOpened = useUnit($isModalOpened)
 
-    const toggleModal = useUnit(modalToggled)
+export const CreateNewProject = ({model}: Props) => {
+    const isModalOpened = useUnit(model.$isModalOpened)
 
-    const { fields, submit } = useForm($createNewProjectForm)
+    const toggleModal = useUnit(model.events.modalToggled)
+
+    const { fields, submit } = useForm(model.form)
 
     function submitHandler(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()

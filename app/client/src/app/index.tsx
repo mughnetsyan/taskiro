@@ -7,7 +7,6 @@ import { appStarted } from 'shared/config'
 
 import './styles/index.css'
 
-
 export const App = () => {
     return (
         <RouterProvider router={router}>
