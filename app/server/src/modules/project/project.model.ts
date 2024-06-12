@@ -1,7 +1,6 @@
+import { User } from "modules/user/user.model";
 import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
 
-import { User } from "modules/user";
-import { Task } from "modules/task";
 
 
 @Table({tableName: 'projects'})

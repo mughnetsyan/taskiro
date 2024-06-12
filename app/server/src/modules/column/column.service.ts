@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/sequelize';
 
 import { Column } from './column.model';
 import { GetColumnsDto, CreateColumnDto, DeleteColumnDto } from './dto';
-import { Task } from 'modules/task'
+import { Task } from 'modules/task/task.model';
 
 
 @Injectable()

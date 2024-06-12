@@ -6,7 +6,7 @@ import { ProjectService } from './project.service';
 import { ProjectController } from './project.controller';
 
 import { Project } from './project.model';
-import { SessionModule } from 'modules/session';
+import { SessionModule } from 'modules/session/session.module';
 
 @Module({
   controllers: [ProjectController],

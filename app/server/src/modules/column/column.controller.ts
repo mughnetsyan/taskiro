@@ -2,12 +2,14 @@ import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
 
 import { ColumnService } from './column.service';
 import { CreateColumnDto, DeleteColumnDto } from './dto';
-import { TaskService } from 'modules/task';
+import { TaskService } from 'modules/task/task.service';
+
 
 @Controller('columns')
 export class ColumnController {
   constructor(
     private readonly columnService: ColumnService,
+    private readonly taskService: TaskService
   ) {}
 
   @Get()

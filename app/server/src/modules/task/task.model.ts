@@ -1,6 +1,7 @@
+import { Column } from "modules/column/column.model";
 import { BelongsTo, Column as Col, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
 
-import { Column } from "modules/column";
+
 
 
 @Table({tableName: 'tasks'})

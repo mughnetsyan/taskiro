@@ -1,9 +1,9 @@
 import { BadRequestException, Controller, Get, HttpCode, Param, Post, Query, Req, UnauthorizedException } from '@nestjs/common';
 import { Request } from 'express';
 
-import { SessionService } from 'modules/session';
 
 import { ProjectService } from './project.service';
+import { SessionService } from 'modules/session/session.service';
 
 
 @Controller('projects')

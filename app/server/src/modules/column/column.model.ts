@@ -1,7 +1,7 @@
+import { Project } from "modules/project/project.model";
+import { Task } from "modules/task/task.model";
 import { BelongsTo, Column as Col, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
 
-import { Project } from "modules/project";
-import { Task } from "modules/task";
 
 
 @Table({tableName: 'columns'})

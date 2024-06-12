@@ -2,12 +2,18 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { SequelizeModule } from '@nestjs/sequelize'
 import { JwtModule } from '@nestjs/jwt'
+import { User } from 'modules/user/user.model'
+import { Project } from 'modules/project/project.model'
+import { Column } from 'modules/column/column.model'
+import { Task } from 'modules/task/task.model'
+import { UserModule } from 'modules/user/user.module'
+import { ProjectModule } from 'modules/project/project.module'
+import { SessionModule } from 'modules/session/session.module'
+import { TaskModule } from 'modules/task/task.module'
+import { ColumnModule } from 'modules/column/column.module'
+import { SessionMiddleware } from 'modules/session/session.middleware'
 
-import { User, UserModule } from 'modules/user'
-import { Project, ProjectModule } from 'modules/project'
-import { SessionMiddleware, SessionModule } from 'modules/session'
-import { Task, TaskModule } from 'modules/task'
-import { Column, ColumnModule } from 'modules/column'
+
 
 
 

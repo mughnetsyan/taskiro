@@ -3,12 +3,12 @@ import { ConfigService } from '@nestjs/config';
 import { type Request, type Response } from 'express';
 import * as bcrypt from 'bcrypt';
 
-import { UserService } from 'modules/user';
 
 import { SessionService } from './session.service';
 import { SignInDto, SignUpDto } from './dto';
 import { Session } from './types';
 import { accessTokenConfig, refreshTokenConfig } from './config';
+import { UserService } from 'modules/user/user.service';
 
 
 @Controller('session')

@@ -11,8 +11,6 @@ import { SequelizeModule } from '@nestjs/sequelize';
   imports: [
     SequelizeModule.forFeature([Task])
   ],
-  exports: [
-    TaskService
-  ]
+  exports: [TaskService]
 })
 export class TaskModule {}
