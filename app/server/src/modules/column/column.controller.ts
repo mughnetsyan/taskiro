@@ -28,6 +28,8 @@ export class ColumnController {
 
   @Delete()
   async deleteColumn(@Body() body: DeleteColumnDto) {
+    const tasks = await this.taskService.deleteTasksByColumnId(body.id)
+
     const column = await this.columnService.deleteColumn(body)
 
     return

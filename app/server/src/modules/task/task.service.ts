@@ -57,4 +57,14 @@ export class TaskService {
 
         return task
     }
+
+    async deleteTasksByColumnId(columnId) {
+        const tasks = await this.taskRepository.destroy({
+            where: {
+                columnId
+            }
+        })
+
+        return tasks
+    }
 }

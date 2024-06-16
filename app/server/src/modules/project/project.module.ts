@@ -7,6 +7,7 @@ import { ProjectController } from './project.controller';
 
 import { Project } from './project.model';
 import { SessionModule } from 'modules/session/session.module';
+import { ColumnModule } from 'modules/column/column.module';
 
 @Module({
   controllers: [ProjectController],
@@ -14,7 +15,8 @@ import { SessionModule } from 'modules/session/session.module';
   imports: [
     SequelizeModule.forFeature([Project]),
     
-    SessionModule
+    SessionModule,
+    ColumnModule
   ],
 })
 export class ProjectModule {}

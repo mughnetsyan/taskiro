@@ -16,5 +16,8 @@ import { TaskModule } from 'modules/task/task.module';
 
     TaskModule
   ],
+  exports: [
+    ColumnService
+  ]
 })
 export class ColumnModule {}
