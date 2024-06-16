@@ -1,0 +1,23 @@
+.deleteButton {
+    background: transparent;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+/* @media(hover) {
+    .deleteButton {
+        opacity: 0;
+    }
+
+    .header:hover .deleteButton {
+        opacity: 1;
+    }
+}
+
+@media(hover: none) {
+    .deleteButton {
+        opacity: 1;
+    }
+} */

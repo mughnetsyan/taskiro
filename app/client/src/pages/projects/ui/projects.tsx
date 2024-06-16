@@ -2,9 +2,10 @@ import { useRef } from "react"
 
 import { useList, useUnit } from "effector-react"
 
-import { triggeredLoadingMoreProjects, projectsQuery } from "../model"
+import { triggeredLoadingMoreProjects, projectsQuery, $$deleteProjectModel } from "../model"
 
 import { BaseLayout } from "widgets/layouts"
+import { DeleteProject } from "features/delete-project"
 
 import { ProjectCard } from "entities/project"
 
@@ -15,12 +16,20 @@ import { $projects } from "../model"
 import styles from './projects.module.css'
 
 
+
 export const Projects = () => {
   const projects = useList($projects, {
     fn: ({id, name, description}) => (
-      <ProjectCard key={id} id={id} name={name} description={description} />
+      <ProjectCard
+        key={id} 
+        id={id} 
+        name={name} 
+        description={description} 
+
+        deleteProjectSlot={<DeleteProject model={$$deleteProjectModel} id={id}/>}
+      />
     ),
-    placeholder: <ProjectCard key='placeholder' id={99999999} name="No projects here!" description="Create new ones!" />
+    placeholder: "No projects here"
   })
 
   const loadingFinished = useUnit(projectsQuery.$finished)

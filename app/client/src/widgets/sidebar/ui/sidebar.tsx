@@ -2,13 +2,13 @@ import { Link } from 'atomic-router-react'
 
 import { useList, useUnit } from 'effector-react'
 
-import { CreateNewProject } from 'features/create-new-project'
+import { CreateNewProject } from 'features/create-project'
 
 import { SessionCard } from 'entities/session/'
 
 import { baseRoutes } from 'shared/routing'
 
-import { $links, $$createNewProjectModel } from '../model'
+import { $links, $$createProjectModel } from '../model'
 
 import { NavigationItem } from './navigation-item'
 import { CurrentDate } from './current-date'
@@ -42,7 +42,7 @@ export const Sidebar = () => {
                 </nav>
             </section>
             <section className={styles.actions}>
-                <CreateNewProject model={$$createNewProjectModel}/>
+                <CreateNewProject model={$$createProjectModel}/>
                 <CurrentDate />
             </section>
         </aside>

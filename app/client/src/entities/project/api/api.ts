@@ -1,10 +1,10 @@
 import { createJsonMutation, createJsonQuery, declareParams, unknownContract } from "@farfetched/core";
 import { createFactory } from "@withease/factories";
 
-import { getRequestPath } from "shared/api";
+import { getRequestPath, undefinedContract } from "shared/api";
 
 import { projectContract, projectsContract } from "./contracts";
-import { CreateNewProjectDto, ProjectQueryDto, ProjectsQueryDto } from "./dto";
+import { CreateNewProjectMutationDto, DeleteProjectMutationDto, ProjectQueryDto, ProjectsQueryDto } from "./dto";
 
 
 export const createProjectsQuery = createFactory(() => 
@@ -40,7 +40,7 @@ export const createProjectQuery = createFactory(() =>
 
 export const createCreateNewProjectMutation = createFactory(() => 
     createJsonMutation({
-        params: declareParams<CreateNewProjectDto>(),
+        params: declareParams<CreateNewProjectMutationDto>(),
         request: {
             method: 'POST',
             url: getRequestPath('projects'),
@@ -48,7 +48,21 @@ export const createCreateNewProjectMutation = createFactory(() =>
             body: ({name, description}) => ({name, description})
         },
         response: {
-            contract: unknownContract
+            contract: undefinedContract
         }
     })
 )
+
+export const deleteProjectMutationFactory = createFactory(() => (
+    createJsonMutation({
+        params: declareParams<DeleteProjectMutationDto>(),
+        request: {
+            method: 'DELETE',
+            url: ({id}) => getRequestPath(`projects/${id}`),
+            credentials: 'include',
+        },
+        response: {
+            contract: undefinedContract
+        }
+    })
+))

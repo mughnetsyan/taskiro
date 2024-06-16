@@ -1,25 +1,3 @@
-.slider {
-    height: 100%;
-}
-
-.sliderControlsGroup {
-    display: flex;
-    
-    justify-content: space-between;
-}
-
-.sliderViewport {
-    height: 100%;
-}
-
-.columns {
-    display: flex;
-
-    height: 100%;
-
-    margin-left: -12px;
-}
-
 
 .column, .createNewColumnContainer  {
     flex: 0 0 25%;

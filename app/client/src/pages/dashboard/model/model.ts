@@ -1,15 +1,22 @@
 import { combine, createStore, sample } from "effector";
+import { spread } from "patronum";
+import { applyBarrier } from "@farfetched/core";
 import { invoke } from "@withease/factories";
 
-import { $$createNewProjectModel } from "widgets/sidebar";
+import { $$createProjectModel } from "widgets/sidebar";
+
+import { deleteProjectFactory } from "features/delete-project";
+
 
 import { createProjectsQuery } from "entities/project";
-import { applyBarrier } from "@farfetched/core";
+import { projectFactory } from "entities/project/model";
 import { authBarrier } from "entities/session";
+
 import { baseRoutes } from "shared/routing";
 import { Project } from "shared/api";
-import { spread } from "patronum";
 
+
+export const $$deleteProjectModel = invoke(deleteProjectFactory)
 
 export const projectsQuery = invoke(createProjectsQuery)
 
@@ -35,7 +42,10 @@ sample({
 
 
 sample({
-    clock: $$createNewProjectModel.createNewProjectMutation.finished.success,
+    clock: [
+        $$createProjectModel.createNewProjectMutation.finished.success,
+        $$deleteProjectModel.deleteProjectMutation.finished.success
+    ],
     source: {
         limit: $limit,
         offset: $offset,

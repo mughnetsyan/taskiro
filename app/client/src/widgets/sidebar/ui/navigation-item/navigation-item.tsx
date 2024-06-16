@@ -5,7 +5,6 @@ import { Link } from 'atomic-router-react'
 import { cx } from 'class-variance-authority'
 
 import styles from './navigation-item.module.css'
-import { useUnit } from 'effector-react'
 
 
 

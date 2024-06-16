@@ -3,11 +3,15 @@ export type ProjectsQueryDto = {
     offset: number
 }
 
-export type CreateNewProjectDto = {
+export type ProjectQueryDto = {
+    id: number
+}
+
+export type CreateNewProjectMutationDto = {
     name: string,
     description: string,
 }
 
-export type ProjectQueryDto = {
+export type DeleteProjectMutationDto = {
     id: number
 }

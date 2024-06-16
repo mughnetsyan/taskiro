@@ -1,47 +1,55 @@
+import { ComponentProps, useCallback, useMemo } from 'react'
 import { useList, useUnit } from 'effector-react'
 import useEmblaCarousel from 'embla-carousel-react'
 
 import { BaseLayout } from 'widgets/layouts'
 
-import { CreateNewTask } from 'features/create-new-task'
-import { CreateNewColumn } from 'features/create-new-column'
+import { CreateTask } from 'features/create-task'
+import { CreateNewColumn } from 'features/create-column'
+import { DeleteColumn } from 'features/delete-column'
+import { DeleteTask } from 'features/delete-task'
+import { ToggleTask } from 'features/toggle-task'
 
 import { TaskCard } from 'entities/task'
 import { Column } from 'entities/column'
 
-import { Section } from 'shared/ui'
-import { useSliderControls } from 'shared/lib/embla'
+import { $columns, $name, $$createColumnModel, $$deleteColumnModel, $$createTaskModel, $$deleteTaskModel, $$toggleTaskModel } from '../model'
 
-import { SliderControl } from './slider-control'
-
-import { $columns, $name, $$taskModel, $$columnModel, $$createNewTaskModel, $$createNewColumnModel } from '../model'
-import { carouselOptions } from '../config'
+import { Slider } from './slider'
 
 import styles from './project.module.css'
-import { useMemo } from 'react'
 
+//* You can avoid unnecessary re-rerenders by using slots like this:
+//* useMemo(() => <Slot model={$$slotModel} />, [])
+//* But this leads to dynamicly called hooks, so adding/deleting items from list will throw errors 
+//* TODO: solve this
 export const Project = () => {
-    const [carouselRef, carouselApi] = useEmblaCarousel(carouselOptions)
-
-    const sliderControlsApi = useSliderControls(carouselApi)
-
     const name = useUnit($name)
-
-    const taskModel = useMemo(() => $$taskModel, [])
 
     const columns = useList($columns, {
         fn({id, name, tasks}) {
             return (
                 <Column 
-                    model={$$columnModel}
                     id={id}
                     key={id}
                     name={name}
                     className={styles.column}
-                    createNewTaskSlot={<CreateNewTask model={$$createNewTaskModel} columnId={id}/>}
+
+                    createTaskSlot={<CreateTask model={$$createTaskModel} columnId={id}/>}
+                    deleteColumnSlot={<DeleteColumn model={$$deleteColumnModel} id={id}/>}
                 >
                     {tasks.map(({id, text, completed}) => {
-                        return <TaskCard model={taskModel} id={id} key={id} text={text} completed={completed} />
+
+                        return (
+                            <TaskCard 
+                                key={id} 
+                                text={text} 
+                                completed={completed} 
+
+                                deleteTaskSlot={<DeleteTask model={$$deleteTaskModel} id={id}/>}
+                                toggleTaskSlot={<ToggleTask model={$$toggleTaskModel} id={id} completed={completed}/>}
+                            />
+                        )
                     })}
                 </Column>
             )
@@ -50,21 +58,12 @@ export const Project = () => {
     
     return (
         <BaseLayout title={name}>
-            <Section className={styles.slider} onMouseMove={e => e.stopPropagation()}>
-                <div className={styles.sliderControlsGroup}>
-                    <SliderControl sliderControlsApi={sliderControlsApi} mode='prev'/>
-                    <SliderControl sliderControlsApi={sliderControlsApi} mode='next'/>
+            <Slider>
+                {columns}
+                <div className={styles.createNewColumnContainer}>
+                    <CreateNewColumn model={$$createColumnModel}/>
                 </div>
-
-                <div className={styles.sliderViewport} ref={carouselRef}>
-                    <div className={styles.columns}>
-                        {columns}
-                        <div className={styles.createNewColumnContainer}>
-                            <CreateNewColumn model={$$createNewColumnModel}/>
-                        </div>
-                    </div>
-                </div>
-            </Section>
+            </Slider>
         </BaseLayout>
     )
 }

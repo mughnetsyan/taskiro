@@ -3,22 +3,27 @@ import { applyBarrier } from "@farfetched/core";
 import { invoke } from "@withease/factories";
 import { spread } from "patronum";
 
-import { createNewColumnFactory } from "features/create-new-column";
+import { createColumnFactory } from "features/create-column";
+import { createTaskFactory } from "features/create-task";
+import { deleteColumnFactory } from "features/delete-column";
+import { deleteTaskFactory } from "features/delete-task";
+import { toggleTaskFactory } from "features/toggle-task";
 
 import { authBarrier } from "entities/session";
 import { createProjectQuery } from "entities/project";
-import { createColumnModel, createColumnsQuery } from "entities/column";
+import { createColumnsQuery } from "entities/column";
 
 import { Column } from "shared/api";
 import { baseRoutes } from "shared/routing";
-import { createTaskModel } from "entities/task";
-import { createCreateNewTaskModel } from "features/create-new-task";
 
 
-export const $$taskModel = invoke(createTaskModel)
-export const $$columnModel = invoke(createColumnModel)
-export const $$createNewTaskModel = invoke(createCreateNewTaskModel)
-export const $$createNewColumnModel = invoke(createNewColumnFactory)
+
+export const $$createTaskModel = invoke(createTaskFactory)
+export const $$deleteTaskModel = invoke(deleteTaskFactory)
+export const $$toggleTaskModel = invoke(toggleTaskFactory)
+
+export const $$deleteColumnModel = invoke(deleteColumnFactory)
+export const $$createColumnModel = invoke(createColumnFactory)
 
 export const projectQuery = invoke(createProjectQuery)
 export const columnsQuery = invoke(createColumnsQuery)
@@ -45,10 +50,11 @@ sample({
 
 sample({
     clock: [
-        $$createNewTaskModel.createNewTaskMutation.finished.success, 
-        $$createNewColumnModel.createNewColumnMutation.finished.success,
-        $$taskModel.deleteTaskMutation.finished.success,
-        $$columnModel.deleteColumnMutation.finished.success
+        $$createTaskModel.createNewTaskMutation.finished.success, 
+        $$createColumnModel.createNewColumnMutation.finished.success,
+        $$deleteTaskModel.deleteTaskMutation.finished.success,
+        $$deleteColumnModel.deleteColumnMutation.finished.success,
+        $$toggleTaskModel.toggleTaskMutation.finished.success
     ],
     source: baseRoutes.projects.project.$params,
     fn: ({id}) => ({projectId: id}),

@@ -1,20 +1,23 @@
 import { combine, createEvent, createStore, sample } from "effector";
-
+import { not, spread } from "patronum";
 import { applyBarrier } from "@farfetched/core";
-
 import { invoke } from "@withease/factories";
 
-import { $$createNewProjectModel } from "widgets/sidebar";
+import { $$createProjectModel } from "widgets/sidebar";
+
+import { deleteProjectFactory } from "features/delete-project";
 
 import { authBarrier } from "entities/session";
 import { createProjectsQuery } from "entities/project";
 
 import { Project } from "shared/api";
+import { baseRoutes } from "shared/routing";
+
 
 import { LIMIT, OFFSET_STEP } from "../config";
-import { baseRoutes } from "shared/routing";
-import { debug, not, spread } from "patronum";
 
+
+export const $$deleteProjectModel = invoke(deleteProjectFactory)
 
 export const $limit = createStore(LIMIT)
 
@@ -71,11 +74,18 @@ sample({
 })
 
 sample({
-    clock:  $$createNewProjectModel.createNewProjectMutation.finished.success,
+    clock: $$createProjectModel.createNewProjectMutation.finished.success,
     source: $count,
     fn: (count) => ({
         limit: 1,
         offset: count
     }),
     target: projectsQuery.start
+})
+
+sample({
+    clock: $$deleteProjectModel.deleteProjectMutation.finished.success,
+    source: $projects,
+    fn: (projects) => projects.slice(0, -1),
+    target: $projects
 })

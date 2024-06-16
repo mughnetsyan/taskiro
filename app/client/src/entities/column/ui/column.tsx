@@ -1,41 +1,52 @@
-import { useUnit } from 'effector-react'
-import { memo, useEffect } from 'react'
+import * as Popover from '@radix-ui/react-popover'
 
-import { createColumnModel } from '../model'
+import { cx } from 'class-variance-authority'
 
 import styles from './column.module.css'
 
-import deleteImg from './assets/delete.svg'
-import { cx } from 'class-variance-authority'
+import moreActionsImg from '../assets/more-actions.svg'
 
 
 interface Props {
-    model: ReturnType<typeof createColumnModel>,
     id: number,
     name: string,
     className?: string,
     children?: React.ReactNode,
-    createNewTaskSlot?: React.ReactNode
+    deleteColumnSlot?: React.ReactNode,
+    createTaskSlot?: React.ReactNode,
 }
 
 
-export const Column = ({model,id, name, className, children, createNewTaskSlot}: Props) => {
-    const deleteColumn = useUnit(model.events.columnDeleted)
-
+export const Column = ({name, className, children, deleteColumnSlot, createTaskSlot}: Props) => {
     return (
         <div className={cx(styles.column, className)}>
             <div className={styles.header}>
-                <h2 className={styles.name}>{name}</h2>
+                <div className={styles.meta}>
+                    <h2 className={styles.name}>{name}</h2>
+                </div>
 
-                <button className={styles.deleteButton} onClick={() => deleteColumn({id})}>
-                    <img src={deleteImg} alt="" />
-                </button>
+                <div className={styles.details}>
+                    <Popover.Root>
+                        <Popover.Trigger className={styles.moreActionsTrigger}>
+                            <img src={moreActionsImg} alt="More actions"/>
+                        </Popover.Trigger>
+                        <Popover.Portal>
+                            <Popover.Content className={styles.popoverContent} align="end">
+                                <Popover.Arrow className={styles.arrow}/>
+
+                                <div className={styles.moreActions}>
+                                    {deleteColumnSlot}
+                                </div>
+                            </Popover.Content>
+                        </Popover.Portal>
+                    </Popover.Root>     
+                </div>
             </div>
 
 
             <div className={styles.tasks}>
                 {children}
-                {createNewTaskSlot}
+                {createTaskSlot}
             </div>
         </div>
     )

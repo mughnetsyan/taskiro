@@ -1,14 +1,14 @@
 import { createStore } from "effector"
-
+import { invoke } from "@withease/factories"
 import { RouteInstance } from "atomic-router"
 
-import { createNewProjecFactory } from "features/create-new-project"
+import { createProjectFactory } from "features/create-project"
 
 import { baseRoutes, sections } from "shared/routing"
 
 import dashobardImg from '../assets/dashboard.svg'
 import projectsImg from '../assets/projects.svg'
-import { invoke } from "@withease/factories"
+
 
 
 type Link = {
@@ -34,4 +34,4 @@ export const $links = createStore<Link[]>([
 ])
 
 
-export const $$createNewProjectModel = invoke(createNewProjecFactory)
+export const $$createProjectModel = invoke(createProjectFactory)

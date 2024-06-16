@@ -1,21 +1,50 @@
 import { Link } from 'atomic-router-react'
-import styles from './project-card.module.css'
+import * as Popover from '@radix-ui/react-popover'
+
 import { baseRoutes } from 'shared/routing'
+
+import styles from './project-card.module.css'
+
+import moreActionsImg from '../assets/more-actions.svg'
+
 
 
 interface Props {
     id: number,
     name: string,
     description: string,
+    deleteProjectSlot: React.ReactNode
 }
 
 
-export const ProjectCard = ({name, description, id}: Props) => {
-
+export const ProjectCard = ({id, name, description, deleteProjectSlot}: Props) => {
     return (
-        <Link className={styles.card} to={baseRoutes.projects.project} params={{id}}>
-            <h1 className={styles.name}>{name}</h1>
-            <p className={styles.description}>{description}</p>
-        </Link>
+        <div className={styles.card} >
+            <Link className={styles.link} to={baseRoutes.projects.project} params={{id}}/>
+
+            <div className={styles.content}>
+                <div className={styles.meta}>
+                    <h1 className={styles.name}>{name}</h1>
+                    <p className={styles.description}>{description}</p>
+                </div>
+                <div className={styles.details}>
+                    <Popover.Root>
+                        <Popover.Trigger className={styles.moreActionsTrigger}>
+                            <img src={moreActionsImg} alt="More actions"/>
+                        </Popover.Trigger>
+                        <Popover.Portal>
+                            <Popover.Content className={styles.popoverContent} align="end">
+                                <Popover.Arrow className={styles.arrow}/>
+
+                                <div className={styles.moreActions}>
+                                    {deleteProjectSlot}
+                                </div>
+                            </Popover.Content>
+                        </Popover.Portal>
+                    </Popover.Root>     
+                </div>
+            </div>
+            
+        </div>
     )
 }

@@ -1,0 +1,15 @@
+.checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 24px;
+    height: 24px;
+
+    background: url('../assets/checkbox-background.svg');
+
+    border-radius: 50%;
+
+    cursor: pointer;
+    user-select: none;
+}
