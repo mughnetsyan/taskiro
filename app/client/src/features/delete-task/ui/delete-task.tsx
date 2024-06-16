@@ -1,5 +1,7 @@
 import { useUnit } from 'effector-react'
 
+import { MoreActionsItem } from 'shared/ui/more-actions-item'
+
 import { deleteTaskFactory } from '../model'
 
 import styles from './delete-task.module.css'
@@ -18,8 +20,9 @@ export const DeleteTask = ({model, id}: Props) => {
     const deleteTask = useUnit(model.events.taskDeleted)
 
     return (
-        <button className={styles.deleteButton} onClick={() => deleteTask({id})}>
-            <img src={deleteImg} alt="Delete task" />
-        </button>
+        <MoreActionsItem className={styles.deleteButton} onClick={() => deleteTask({id})}>
+            <img src={deleteImg} alt="Delete project"/>
+            <span>Delete</span>
+        </MoreActionsItem>
     )
 }

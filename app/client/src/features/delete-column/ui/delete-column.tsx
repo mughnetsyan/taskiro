@@ -1,10 +1,12 @@
 import { useUnit } from 'effector-react'
+
+import { MoreActionsItem } from 'shared/ui/more-actions-item'
+
 import { deleteColumnFactory } from '../model'
 
 import styles from './delete-column.module.css'
 
 import deleteImg from '../assets/delete.svg'
-import { MoreActionsItem } from 'entities/column'
 
 interface Props {
     model: ReturnType<typeof deleteColumnFactory>,

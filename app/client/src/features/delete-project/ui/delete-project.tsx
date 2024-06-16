@@ -1,7 +1,7 @@
 import { useUnit } from 'effector-react'
 import { deleteProjectFactory } from '../model'
 
-import { MoreActionsItem } from 'entities/project'
+import { MoreActionsItem } from 'shared/ui/more-actions-item'
 
 import styles from './delete-project.module.css'
 
