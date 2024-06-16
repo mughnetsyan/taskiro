@@ -1,5 +1,5 @@
 import { combine, createEvent, createStore, sample } from "effector";
-import { not, spread } from "patronum";
+import { debug, not, spread } from "patronum";
 import { applyBarrier } from "@farfetched/core";
 import { invoke } from "@withease/factories";
 
@@ -28,6 +28,7 @@ export const projectsQuery = invoke(createProjectsQuery)
 applyBarrier(projectsQuery, { barrier: authBarrier })
 
 export const triggeredLoadingMoreProjects = createEvent()
+
 export const loadedMoreProjects = createEvent()
 
 export const $projects = createStore<Project[]>([])
@@ -83,9 +84,10 @@ sample({
     target: projectsQuery.start
 })
 
+// implement optimistic later by effector-undo or custom API
 sample({
-    clock: $$deleteProjectModel.deleteProjectMutation.finished.success,
+    clock: $$deleteProjectModel.events.projectDeleted,
     source: $projects,
-    fn: (projects) => projects.slice(0, -1),
+    fn: (projects, {id}) => projects.filter((project) => project.id !== id),
     target: $projects
 })
