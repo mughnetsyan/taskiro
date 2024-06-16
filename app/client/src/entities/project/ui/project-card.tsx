@@ -6,6 +6,8 @@ import { baseRoutes } from 'shared/routing'
 import styles from './project-card.module.css'
 
 import moreActionsImg from '../assets/more-actions.svg'
+import { memo, useEffect } from 'react'
+import { arePropsEqual } from 'shared/lib'
 
 
 
@@ -17,7 +19,7 @@ interface Props {
 }
 
 
-export const ProjectCard = ({id, name, description, deleteProjectSlot}: Props) => {
+export const ProjectCard = memo(({id, name, description, deleteProjectSlot}: Props) => {
     return (
         <div className={styles.card} >
             <Link className={styles.link} to={baseRoutes.projects.project} params={{id}}/>
@@ -47,4 +49,4 @@ export const ProjectCard = ({id, name, description, deleteProjectSlot}: Props) =
             
         </div>
     )
-}
+}, arePropsEqual)

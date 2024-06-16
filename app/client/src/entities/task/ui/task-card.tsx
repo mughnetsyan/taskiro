@@ -5,6 +5,8 @@ import * as Popover from '@radix-ui/react-popover'
 import styles from './task-card.module.css'
 
 import moreActionsImg from '../assets/more-actions.svg'
+import { memo, useEffect } from 'react'
+import { arePropsEqual } from 'shared/lib'
 
 interface Props {
     text: string,
@@ -14,7 +16,7 @@ interface Props {
     toggleTaskSlot?: React.ReactNode
 }
 
-export const TaskCard = ({text, completed, deleteTaskSlot, toggleTaskSlot}: Props) => {
+export const TaskCard = memo(({text, completed, deleteTaskSlot, toggleTaskSlot}: Props) => {
     return (    
         <div className={styles.card}>
             <div className={styles.meta}>
@@ -41,4 +43,4 @@ export const TaskCard = ({text, completed, deleteTaskSlot, toggleTaskSlot}: Prop
             </div>
         </div>
     )
-}
+}, arePropsEqual)

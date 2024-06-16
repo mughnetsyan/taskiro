@@ -1,6 +1,6 @@
+import { cx } from 'class-variance-authority'
 import * as Popover from '@radix-ui/react-popover'
 
-import { cx } from 'class-variance-authority'
 
 import styles from './column.module.css'
 

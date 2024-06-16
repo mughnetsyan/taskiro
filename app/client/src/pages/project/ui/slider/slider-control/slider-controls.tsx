@@ -1,6 +1,6 @@
 import { cx } from 'class-variance-authority'
 
-import { UseSliderControlsReturnType } from 'shared/lib/embla'
+import { UseSliderControlsReturnType } from 'shared/lib'
 
 import { getSliderControlOptions } from '../../../config/get-slider-control-options'
 
