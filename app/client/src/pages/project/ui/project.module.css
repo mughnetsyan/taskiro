@@ -1,5 +1,7 @@
 
 .column, .createNewColumnContainer  {
+    height: 100%;
+
     flex: 0 0 25%;
 
     min-width: 0;

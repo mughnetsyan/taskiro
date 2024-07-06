@@ -16,7 +16,7 @@ const startQueries = createEvent<RouteParamsAndQuery<any>>()
 export const projectRoute = chainRoute({
     route: chainAuthorized(baseRoutes.projects.project),
     beforeOpen: startQueries,
-    openOn: combineEvents([projectQuery.finished.success, columnsQuery.finished.success])  
+    openOn: combineEvents([projectQuery.finished.success])  
 })
 
 sample({
@@ -30,9 +30,9 @@ sample({
     target: projectQuery.start
 })
 
-sample({
-    clock: startColumnsQuery,
-    source: baseRoutes.projects.project.$params,
-    fn: ({id}) => ({projectId: id}),
-    target: columnsQuery.start
-})
+// sample({
+//     clock: startColumnsQuery,
+//     source: baseRoutes.projects.project.$params,
+//     fn: ({id}) => ({projectId: id}),
+//     target: columnsQuery.start
+// })

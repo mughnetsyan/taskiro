@@ -1,8 +1,9 @@
 export type Task = {
     id: number,
-    projectId: number,
+    columnId: number,
     text: string,
     completed: boolean,
+    order: number
 }
 
 export type Project = {
@@ -16,7 +17,7 @@ export type Column = {
     id: number,
     projectId: number,
     name: string,
-    tasks: Task[]
+    order: number,
 }
 
 export type Session = {

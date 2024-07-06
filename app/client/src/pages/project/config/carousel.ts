@@ -1,5 +1,6 @@
 import { EmblaOptionsType } from "embla-carousel";
 
 export const carouselOptions: EmblaOptionsType = {
-    align: 'start'
+    align: 'start',
+    dragFree: true
 }

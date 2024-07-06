@@ -1,6 +1,6 @@
-import { ComponentProps, useCallback, useMemo } from 'react'
-import { useList, useUnit } from 'effector-react'
-import useEmblaCarousel from 'embla-carousel-react'
+import { useUnit } from 'effector-react'
+import { DndContext, DragOverlay } from '@dnd-kit/core'
+import { SortableContext } from '@dnd-kit/sortable'
 
 import { BaseLayout } from 'widgets/layouts'
 
@@ -10,56 +10,121 @@ import { DeleteColumn } from 'features/delete-column'
 import { DeleteTask } from 'features/delete-task'
 import { ToggleTask } from 'features/toggle-task'
 
-import { TaskCard } from 'entities/task'
-import { Column } from 'entities/column'
-
-import { $columns, $name, $$createColumnModel, $$deleteColumnModel, $$createTaskModel, $$deleteTaskModel, $$toggleTaskModel } from '../model'
+import { $columns, $name, $$createColumnModel, $$deleteColumnModel, $$createTaskModel, $$deleteTaskModel, $$toggleTaskModel, $columnsId, $activeColumn, $activeTask, dragStarted, dragEnded, dragging, $tasks } from '../model'
 
 import { Slider } from './slider'
 
+import { SortableColumn, SortableTask } from './dnd'
+
+import { parseId, parseTaskId } from '../lib'
+
 import styles from './project.module.css'
 
-//* You can avoid unnecessary re-rerenders by using slots like this:
-//* useMemo(() => <Slot model={$$slotModel} />, [])
-//* But this leads to dynamicly called hooks, so adding/deleting items from list will throw errors 
-//* TODO: solve this
+
 export const Project = () => {
     const name = useUnit($name)
 
-    const columns = useList($columns, {
-        fn({id, name, tasks}) {
-            return (
-                <Column 
-                    id={id}
-                    key={id}
-                    name={name}
-                    className={styles.column}
+    const tasks = useUnit($tasks)
 
-                    createTaskSlot={<CreateTask model={$$createTaskModel} columnId={id}/>}
-                    deleteColumnSlot={<DeleteColumn model={$$deleteColumnModel} id={id}/>}
-                >
-                    {tasks.map(({id, text, completed}) => {
+    const columns = useUnit($columns)
+    const columnsId = useUnit($columnsId)
 
-                        return (
-                            <TaskCard 
-                                key={id} 
-                                text={text} 
-                                completed={completed} 
+    const activeColumn = useUnit($activeColumn)
+    const activeTask = useUnit($activeTask)
 
-                                deleteTaskSlot={<DeleteTask model={$$deleteTaskModel} id={id}/>}
-                                toggleTaskSlot={<ToggleTask model={$$toggleTaskModel} id={id} completed={completed}/>}
-                            />
-                        )
-                    })}
-                </Column>
-            )
-        }
-    })
-    
+    const dragStartHandler = useUnit(dragStarted)
+    const dragEndHandler = useUnit(dragEnded)
+    const dragOverHandler = useUnit(dragging)
+
     return (
         <BaseLayout title={name}>
             <Slider>
-                {columns}
+                <DndContext
+                    onDragStart={dragStartHandler} 
+                    onDragEnd={dragEndHandler}
+                    onDragOver={dragOverHandler}
+                >
+                    <SortableContext items={columnsId}>
+                            {columns.map(({id: columnId, name}) => (
+                                <SortableColumn
+                                    id={columnId}
+                                    key={columnId}
+                                    name={name}
+
+                                    tasksId={tasks.filter((task) => task.columnId === columnId).map((task) => parseTaskId(task.id))}
+
+                                    className={styles.column}
+
+                                    createTaskSlot={<CreateTask model={$$createTaskModel} columnId={columnId}/>}
+                                    deleteColumnSlot={<DeleteColumn model={$$deleteColumnModel} id={columnId}/>}
+                                >
+                                    {tasks
+                                        .filter((task) => task.columnId === columnId)
+                                        .map(({id, text, completed}) => {
+                                            return (
+                                                <SortableTask 
+                                                    id={parseTaskId(id)}
+                                                    key={parseTaskId(id)} 
+                                                    text={text} 
+                                                    completed={completed} 
+                                                    columnId={columnId}
+                    
+                                                    deleteTaskSlot={<DeleteTask model={$$deleteTaskModel} id={id}/>}
+                                                    toggleTaskSlot={<ToggleTask model={$$toggleTaskModel} id={id} completed={completed}/>}
+                                                />
+                                            )
+                                        })
+                                    }
+                                </SortableColumn>
+                            ))}
+                    </SortableContext>
+                    <DragOverlay>
+                        {activeColumn &&  
+                            (<SortableColumn
+                                id={activeColumn.id}
+                                key={activeColumn.id}
+                                name={activeColumn.name}
+
+                                tasksId={tasks.filter((task) => task.columnId === activeColumn.id).map((task) => parseTaskId(task.id))}
+
+                                className={styles.column}
+
+                                createTaskSlot={<CreateTask model={$$createTaskModel} columnId={activeColumn.id}/>}
+                                deleteColumnSlot={<DeleteColumn model={$$deleteColumnModel} id={activeColumn.id}/>}
+                            >
+                                {tasks
+                                    .filter((task) => task.columnId === activeColumn.id)
+                                    .map(({id, text, completed}) => {
+                                        return (
+                                            <SortableTask
+                                                id={parseTaskId(id)}
+                                                key={parseTaskId(id)} 
+                                                text={text} 
+                                                completed={completed} 
+                                                columnId={activeColumn.id}
+                
+                                                deleteTaskSlot={<DeleteTask model={$$deleteTaskModel} id={id}/>}
+                                                toggleTaskSlot={<ToggleTask model={$$toggleTaskModel} id={id} completed={completed}/>}
+                                            />
+                                        )
+                                    })
+                                }
+                            </SortableColumn>)
+                        }
+                        {activeTask && (
+                            <SortableTask
+                                id={parseTaskId(activeTask.id)}
+                                key={parseTaskId(activeTask.id)} 
+                                text={activeTask.text} 
+                                completed={activeTask.completed} 
+                                columnId={activeTask.columnId}
+
+                                deleteTaskSlot={<DeleteTask model={$$deleteTaskModel} id={activeTask.id}/>}
+                                toggleTaskSlot={<ToggleTask model={$$toggleTaskModel} id={activeTask.id} completed={activeTask.completed}/>}
+                            />
+                        )}
+                    </DragOverlay>
+                </DndContext>
                 <div className={styles.createNewColumnContainer}>
                     <CreateNewColumn model={$$createColumnModel}/>
                 </div>

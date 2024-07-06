@@ -21,16 +21,9 @@ export const Slider = ({children}: Props) => {
 
     return (
         <Section className={styles.slider} onMouseMove={e => e.stopPropagation()}>
-            <div className={styles.sliderControlsGroup}>
-                <SliderControl sliderControlsApi={sliderControlsApi} mode='prev'/>
-                <SliderControl sliderControlsApi={sliderControlsApi} mode='next'/>
-            </div>
-
-            <div className={styles.sliderViewport} ref={carouselRef}>
                 <div className={styles.slides}>
                     {children}
                 </div>
-            </div>
         </Section>
     )
 }

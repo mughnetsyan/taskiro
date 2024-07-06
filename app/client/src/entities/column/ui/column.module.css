@@ -26,6 +26,16 @@
     gap: 16px;
 }
 
+.meta {
+  
+}
+
+.details {
+  display: flex;
+
+  gap: 12px;
+}
+
 .arrow {
     fill: var(--white)
 }

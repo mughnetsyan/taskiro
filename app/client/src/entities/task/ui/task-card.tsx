@@ -5,24 +5,29 @@ import * as Popover from '@radix-ui/react-popover'
 import styles from './task-card.module.css'
 
 import moreActionsImg from '../assets/more-actions.svg'
-import { memo, useEffect } from 'react'
+import { DetailedHTMLProps, forwardRef, HTMLAttributes, memo } from 'react'
 import { arePropsEqual } from 'shared/lib'
 
-interface Props {
+interface Props extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>  {
     text: string,
     completed: boolean,
 
     deleteTaskSlot?: React.ReactNode,
-    toggleTaskSlot?: React.ReactNode
+    toggleTaskSlot?: React.ReactNode,
+
+    dragTaskSlot?: React.ReactNode
 }
 
-export const TaskCard = memo(({text, completed, deleteTaskSlot, toggleTaskSlot}: Props) => {
+type Ref = HTMLDivElement
+
+export const TaskCard = memo(forwardRef<Ref, Props>(({text, completed, className, deleteTaskSlot, toggleTaskSlot, dragTaskSlot, ...props}, ref) => {
     return (    
-        <div className={styles.card}>
+        <div className={cx(styles.card, className)} ref={ref} {...props}>
             <div className={styles.meta}>
                 <p className={cx(styles.text, completed && styles.text_active)}>{text}</p>
                 <div className={styles.toggleTask}>
                     {toggleTaskSlot}
+                    {dragTaskSlot}
                 </div>
             </div>
             <div className={styles.details}>
@@ -43,4 +48,4 @@ export const TaskCard = memo(({text, completed, deleteTaskSlot, toggleTaskSlot}:
             </div>
         </div>
     )
-}, arePropsEqual)
+}), arePropsEqual())
